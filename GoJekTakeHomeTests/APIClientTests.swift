@@ -25,7 +25,7 @@ class APIClientTests: XCTestCase {
 		let task1 = APIRequestBuilder.Task.getContact(id: 123)
 		XCTAssertEqual(task1.route.path, "/contacts/123")
 
-		let vm = ContactViewModel(firstName: "Robin", lastName: "Malhotra", email: "me@rmalhotra.com", profilePic: nil, favorite: false)
+		let vm = Contact.Attributes(firstName: "Robin", lastName: "Malhotra", email: "me@rmalhotra.com", profilePic: nil, favorite: false)
 
 		let task2 = APIRequestBuilder.Task.createContact(contact: APIRequestBuilder.ContactCreationModel(model: vm))
 		XCTAssertEqual(task2.route.path, "/contacts")

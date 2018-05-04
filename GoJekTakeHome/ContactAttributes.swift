@@ -1,5 +1,5 @@
 //
-//  ContactViewModel.swift
+//  ContactAttributes.swift
 //  GoJekTakeHome
 //
 //  Created by Robin Malhotra on 04/05/18.
@@ -8,15 +8,18 @@
 
 import Foundation
 
-struct ContactViewModel  {
-	let firstName: String
-	let lastName: String
-	let email: String?
-	let profilePic: URL?
-	let favorite: Bool
+extension Contact {
+
+	struct Attributes  {
+		let firstName: String
+		let lastName: String
+		let email: String?
+		let profilePic: URL?
+		let favorite: Bool
+	}
 }
 
-extension ContactViewModel: Codable {
+extension Contact.Attributes: Codable {
 	enum CodingKeys: String, CodingKey {
 		case firstName = "first_name"
 		case lastName = "last_name"
@@ -31,7 +34,12 @@ extension ContactViewModel: Codable {
 		lastName = try values.decode(String.self, forKey: .lastName)
 		email = try? values.decode(String.self, forKey: .email)
 		let profileURLString: String? = try? values.decode(String.self, forKey: .profilePic)
-		profilePic = profileURLString.flatMap(URL.init)
+		// Bad API design 🤬
+		if profileURLString == "/images/missing.png" {
+			profilePic = nil
+		} else {
+			profilePic = profileURLString.flatMap(URL.init)
+		}
 		favorite = try values.decode(Bool.self, forKey: .favorite)
 	}
 

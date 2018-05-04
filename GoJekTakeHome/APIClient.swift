@@ -92,13 +92,13 @@ class APIRequestBuilder {
 
 extension APIRequestBuilder {
 	struct ContactCreationModel {
-		let model: ContactViewModel
+		let model: Contact.Attributes
 		// add any extra contact creation info here
 	}
 
 	// Explicitly kept separate from `ContactCreationModel` because they're separated by an ID. I'd wish Swift had structural sharing to solve this, but alas. I'd also try separating name, email etc into its own struct but that felt icky
 	struct ContactUpdatingModel {
 		let id: Int
-		let model: ContactViewModel
+		let model: Contact.Attributes
 	}
 }

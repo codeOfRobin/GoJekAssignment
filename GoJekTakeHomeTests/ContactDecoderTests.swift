@@ -13,7 +13,7 @@ class ContactDecoderTests: XCTestCase {
 
 	let jsonDecoder = JSONDecoder()
     
-    func testContactViewModel() {
+    func testContactDecoder() {
 
 		let jsonData = """
 			[{
@@ -36,14 +36,15 @@ class ContactDecoderTests: XCTestCase {
 		""".data(using: .utf8)!
 
 		do {
-			let contacts = try jsonDecoder.decode(Array<ContactViewModel>.self, from: jsonData)
+			let contacts = try jsonDecoder.decode(Array<Contact>.self, from: jsonData)
 			XCTAssertEqual(contacts.count, 2)
-			XCTAssertEqual(contacts[0].firstName, "aaaaa")
-			XCTAssertEqual(contacts[1].lastName, "bbbbbbbb")
-			XCTAssertEqual(contacts[0].email, "something@example.com")
-			XCTAssertEqual(contacts[0].profilePic?.absoluteString, URL(string: "https://contacts-app.s3-ap-southeast-1.amazonaws.com/contacts/profile_pics/000/000/042/original/arrow_down.png?1494582973")!.absoluteString)
-			XCTAssertEqual(contacts[0].favorite, true)
-
+			XCTAssertEqual(contacts[0].model.firstName, "aaaaa")
+			XCTAssertEqual(contacts[1].model.lastName, "bbbbbbbb")
+			XCTAssertEqual(contacts[0].model.email, "something@example.com")
+			XCTAssertEqual(contacts[0].model.profilePic?.absoluteString, URL(string: "https://contacts-app.s3-ap-southeast-1.amazonaws.com/contacts/profile_pics/000/000/042/original/arrow_down.png?1494582973")!.absoluteString)
+			XCTAssertNil(contacts[1].model.profilePic)
+			XCTAssertEqual(contacts[0].model.favorite, true)
+			XCTAssertEqual(contacts[0].id, 1314)
 		} catch {
 			XCTFail(error.localizedDescription)
 		}
@@ -52,6 +53,8 @@ class ContactDecoderTests: XCTestCase {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
+
+
     
     func testPerformanceExample() {
         // This is an example of a performance test case.
