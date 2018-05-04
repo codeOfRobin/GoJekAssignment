@@ -16,6 +16,8 @@
 		42C3EF08209C65FF002FE3F0 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C3EF07209C65FF002FE3F0 /* APIClient.swift */; };
 		42C3EF0A209C6EE9002FE3F0 /* APIClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C3EF09209C6EE9002FE3F0 /* APIClientTests.swift */; };
 		42C3EF0C209C8883002FE3F0 /* ContactDecoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C3EF0B209C8883002FE3F0 /* ContactDecoderTests.swift */; };
+		42C3EF0E209C9FD8002FE3F0 /* ContactViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C3EF0D209C9FD8002FE3F0 /* ContactViewModel.swift */; };
+		42C3EF10209C9FEA002FE3F0 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C3EF0F209C9FEA002FE3F0 /* Contact.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +44,8 @@
 		42C3EF07209C65FF002FE3F0 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		42C3EF09209C6EE9002FE3F0 /* APIClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientTests.swift; sourceTree = "<group>"; };
 		42C3EF0B209C8883002FE3F0 /* ContactDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDecoderTests.swift; sourceTree = "<group>"; };
+		42C3EF0D209C9FD8002FE3F0 /* ContactViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactViewModel.swift; sourceTree = "<group>"; };
+		42C3EF0F209C9FEA002FE3F0 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +94,8 @@
 				42C3EEF0209C6325002FE3F0 /* LaunchScreen.storyboard */,
 				42C3EEF3209C6325002FE3F0 /* Info.plist */,
 				42C3EF07209C65FF002FE3F0 /* APIClient.swift */,
+				42C3EF0D209C9FD8002FE3F0 /* ContactViewModel.swift */,
+				42C3EF0F209C9FEA002FE3F0 /* Contact.swift */,
 			);
 			path = GoJekTakeHome;
 			sourceTree = "<group>";
@@ -207,6 +213,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				42C3EEEA209C6323002FE3F0 /* ViewController.swift in Sources */,
+				42C3EF0E209C9FD8002FE3F0 /* ContactViewModel.swift in Sources */,
+				42C3EF10209C9FEA002FE3F0 /* Contact.swift in Sources */,
 				42C3EEE8209C6323002FE3F0 /* AppDelegate.swift in Sources */,
 				42C3EF08209C65FF002FE3F0 /* APIClient.swift in Sources */,
 			);
