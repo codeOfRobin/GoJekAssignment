@@ -74,6 +74,17 @@ class APIRequestBuilder {
 			}
 		}()
 
+		request.httpBody = {
+			switch task {
+			case .getContacts, .getContact:
+				return nil
+			case .createContact(let contact):
+				return nil
+			case .updateContact(let contact):
+				return nil
+			}
+		}()
+
 		return request
 	}
 }
@@ -82,21 +93,42 @@ class APIRequestBuilder {
 extension APIRequestBuilder {
 	struct ContactCreationModel {
 		let model: ContactViewModel
+		// add any extra contact creation info here
 	}
 
-	// explicitly kept separate from `ContactCreationModel` because they're separated by an ID. I'd wish Swift had structural sharing to solve this, but alas. I'd also try separating name, email etc into its own struct but that felt icky
+	// Explicitly kept separate from `ContactCreationModel` because they're separated by an ID. I'd wish Swift had structural sharing to solve this, but alas. I'd also try separating name, email etc into its own struct but that felt icky
 	struct ContactUpdatingModel {
 		let id: Int
 		let model: ContactViewModel
 	}
 }
 
-struct ContactViewModel {
+struct ContactViewModel  {
 	let firstName: String
 	let lastName: String
-	let email: String
-	let profile_pic: URL?
+	let email: String?
+	let profilePic: URL?
 	let favorite: Bool
+}
+
+extension ContactViewModel: Decodable {
+	enum CodingKeys: String, CodingKey {
+		case firstName = "first_name"
+		case lastName = "last_name"
+		case email
+		case profilePic = "profile_pic"
+		case favorite
+	}
+	
+	init(from decoder: Decoder) throws {
+		let values = try decoder.container(keyedBy: CodingKeys.self)
+		firstName = try values.decode(String.self, forKey: .firstName)
+		lastName = try values.decode(String.self, forKey: .lastName)
+		email = try? values.decode(String.self, forKey: .email)
+		let profileURLString: String? = try? values.decode(String.self, forKey: .profilePic)
+		profilePic = profileURLString.flatMap(URL.init)
+		favorite = try values.decode(Bool.self, forKey: .favorite)
+	}
 }
 
 struct Contact {
