@@ -10,9 +10,9 @@
 		4233DA23209D9D1300698EFC /* ContactEncoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4233DA22209D9D1300698EFC /* ContactEncoderTests.swift */; };
 		4233DA25209DBF9600698EFC /* ContactCreationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4233DA24209DBF9600698EFC /* ContactCreationModel.swift */; };
 		4233DA27209DBFEB00698EFC /* ContactUpdatingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4233DA26209DBFEB00698EFC /* ContactUpdatingModel.swift */; };
+		4233DA29209DF12E00698EFC /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4233DA28209DF12E00698EFC /* AppCoordinator.swift */; };
 		42C3EEE8209C6323002FE3F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C3EEE7209C6323002FE3F0 /* AppDelegate.swift */; };
 		42C3EEEA209C6323002FE3F0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C3EEE9209C6323002FE3F0 /* ViewController.swift */; };
-		42C3EEED209C6323002FE3F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42C3EEEB209C6323002FE3F0 /* Main.storyboard */; };
 		42C3EEEF209C6325002FE3F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42C3EEEE209C6325002FE3F0 /* Assets.xcassets */; };
 		42C3EEF2209C6325002FE3F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42C3EEF0209C6325002FE3F0 /* LaunchScreen.storyboard */; };
 		42C3EEFD209C6325002FE3F0 /* GoJekTakeHomeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C3EEFC209C6325002FE3F0 /* GoJekTakeHomeTests.swift */; };
@@ -37,10 +37,10 @@
 		4233DA22209D9D1300698EFC /* ContactEncoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactEncoderTests.swift; sourceTree = "<group>"; };
 		4233DA24209DBF9600698EFC /* ContactCreationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactCreationModel.swift; sourceTree = "<group>"; };
 		4233DA26209DBFEB00698EFC /* ContactUpdatingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactUpdatingModel.swift; sourceTree = "<group>"; };
+		4233DA28209DF12E00698EFC /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		42C3EEE4209C6323002FE3F0 /* GoJekTakeHome.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoJekTakeHome.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42C3EEE7209C6323002FE3F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		42C3EEE9209C6323002FE3F0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		42C3EEEC209C6323002FE3F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		42C3EEEE209C6325002FE3F0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		42C3EEF1209C6325002FE3F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		42C3EEF3209C6325002FE3F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -94,8 +94,8 @@
 			isa = PBXGroup;
 			children = (
 				42C3EEE7209C6323002FE3F0 /* AppDelegate.swift */,
+				4233DA28209DF12E00698EFC /* AppCoordinator.swift */,
 				42C3EEE9209C6323002FE3F0 /* ViewController.swift */,
-				42C3EEEB209C6323002FE3F0 /* Main.storyboard */,
 				42C3EEEE209C6325002FE3F0 /* Assets.xcassets */,
 				42C3EEF0209C6325002FE3F0 /* LaunchScreen.storyboard */,
 				42C3EEF3209C6325002FE3F0 /* Info.plist */,
@@ -203,7 +203,6 @@
 			files = (
 				42C3EEF2209C6325002FE3F0 /* LaunchScreen.storyboard in Resources */,
 				42C3EEEF209C6325002FE3F0 /* Assets.xcassets in Resources */,
-				42C3EEED209C6323002FE3F0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,6 +224,7 @@
 				42C3EF0E209C9FD8002FE3F0 /* ContactAttributes.swift in Sources */,
 				42C3EF10209C9FEA002FE3F0 /* Contact.swift in Sources */,
 				42C3EEE8209C6323002FE3F0 /* AppDelegate.swift in Sources */,
+				4233DA29209DF12E00698EFC /* AppCoordinator.swift in Sources */,
 				42C3EF08209C65FF002FE3F0 /* APIClient.swift in Sources */,
 				4233DA25209DBF9600698EFC /* ContactCreationModel.swift in Sources */,
 				4233DA27209DBFEB00698EFC /* ContactUpdatingModel.swift in Sources */,
@@ -253,14 +253,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		42C3EEEB209C6323002FE3F0 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				42C3EEEC209C6323002FE3F0 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		42C3EEF0209C6325002FE3F0 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

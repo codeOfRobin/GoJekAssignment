@@ -20,7 +20,7 @@ extension Contact {
 	}
 }
 
-extension Contact.Attributes: Codable {
+extension Contact.Attributes: Decodable {
 	enum CodingKeys: String, CodingKey {
 		case firstName = "first_name"
 		case lastName = "last_name"
@@ -44,14 +44,5 @@ extension Contact.Attributes: Codable {
 		}
 		favorite = try values.decode(Bool.self, forKey: .favorite)
 		phoneNumber = try? values.decode(String.self, forKey: .phoneNumber)
-	}
-
-	func encode(to encoder: Encoder) throws {
-		var container = encoder.container(keyedBy: CodingKeys.self)
-		try container.encode(firstName, forKey: .firstName)
-		try container.encode(lastName, forKey: .lastName)
-		try container.encode(email, forKey: .email)
-		try container.encode(profilePic, forKey: .profilePic)
-		try container.encode(favorite, forKey: .favorite)
 	}
 }
