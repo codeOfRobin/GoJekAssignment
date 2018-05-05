@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		4233DA23209D9D1300698EFC /* ContactEncoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4233DA22209D9D1300698EFC /* ContactEncoderTests.swift */; };
+		4233DA25209DBF9600698EFC /* ContactCreationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4233DA24209DBF9600698EFC /* ContactCreationModel.swift */; };
+		4233DA27209DBFEB00698EFC /* ContactUpdatingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4233DA26209DBFEB00698EFC /* ContactUpdatingModel.swift */; };
 		42C3EEE8209C6323002FE3F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C3EEE7209C6323002FE3F0 /* AppDelegate.swift */; };
 		42C3EEEA209C6323002FE3F0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C3EEE9209C6323002FE3F0 /* ViewController.swift */; };
 		42C3EEED209C6323002FE3F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42C3EEEB209C6323002FE3F0 /* Main.storyboard */; };
@@ -33,6 +35,8 @@
 
 /* Begin PBXFileReference section */
 		4233DA22209D9D1300698EFC /* ContactEncoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactEncoderTests.swift; sourceTree = "<group>"; };
+		4233DA24209DBF9600698EFC /* ContactCreationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactCreationModel.swift; sourceTree = "<group>"; };
+		4233DA26209DBFEB00698EFC /* ContactUpdatingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactUpdatingModel.swift; sourceTree = "<group>"; };
 		42C3EEE4209C6323002FE3F0 /* GoJekTakeHome.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoJekTakeHome.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42C3EEE7209C6323002FE3F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		42C3EEE9209C6323002FE3F0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -96,6 +100,8 @@
 				42C3EEF0209C6325002FE3F0 /* LaunchScreen.storyboard */,
 				42C3EEF3209C6325002FE3F0 /* Info.plist */,
 				42C3EF07209C65FF002FE3F0 /* APIClient.swift */,
+				4233DA24209DBF9600698EFC /* ContactCreationModel.swift */,
+				4233DA26209DBFEB00698EFC /* ContactUpdatingModel.swift */,
 				42C3EF0D209C9FD8002FE3F0 /* ContactAttributes.swift */,
 				42C3EF0F209C9FEA002FE3F0 /* Contact.swift */,
 			);
@@ -220,6 +226,8 @@
 				42C3EF10209C9FEA002FE3F0 /* Contact.swift in Sources */,
 				42C3EEE8209C6323002FE3F0 /* AppDelegate.swift in Sources */,
 				42C3EF08209C65FF002FE3F0 /* APIClient.swift in Sources */,
+				4233DA25209DBF9600698EFC /* ContactCreationModel.swift in Sources */,
+				4233DA27209DBFEB00698EFC /* ContactUpdatingModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
