@@ -26,8 +26,7 @@ class AppCoordinator: Coordinator {
 	}
 
 	func start() {
-		let emptyViewController = UIViewController()
-		emptyViewController.view.backgroundColor = .cyan
+		let emptyViewController = ContactListViewController()
 		self.rootViewController.viewControllers = [emptyViewController]
 	}
 	
