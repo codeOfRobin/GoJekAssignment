@@ -43,7 +43,7 @@ extension Contact.Attributes: Codable {
 			profilePic = profileURLString.flatMap(URL.init)
 		}
 		favorite = try values.decode(Bool.self, forKey: .favorite)
-		phoneNumber = try values.decode(String.self, forKey: .phoneNumber)
+		phoneNumber = try? values.decode(String.self, forKey: .phoneNumber)
 	}
 
 	func encode(to encoder: Encoder) throws {
