@@ -58,7 +58,7 @@ class APIRequestBuilder {
 		components.path = path
 
 		guard let url = components.url else {
-			return nil
+			fatalError("Can't generate URL")
 		}
 
 		var request = URLRequest.init(url: url)
@@ -79,9 +79,21 @@ class APIRequestBuilder {
 			case .getContacts, .getContact:
 				return nil
 			case .createContact(let contact):
-				return nil
+				let jsonEncoder = JSONEncoder()
+				do {
+					return try jsonEncoder.encode(contact)
+				} catch {
+					// if you can't encode JSON, you have bigger problems
+					fatalError("Encoding failed")
+				}
 			case .updateContact(let contact):
-				return nil
+				let jsonEncoder = JSONEncoder()
+				do {
+					return try jsonEncoder.encode(contact)
+				} catch {
+					// if you can't encode JSON, you have bigger problems
+					fatalError("Encoding failed")
+				}
 			}
 		}()
 

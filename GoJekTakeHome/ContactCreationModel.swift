@@ -25,5 +25,6 @@ extension APIRequestBuilder.ContactCreationModel: Encodable {
 		try container.encode(model.email, forKey: .email)
 		try container.encode(model.profilePic, forKey: .profilePic)
 		try container.encode(model.favorite, forKey: .favorite)
+		try container.encode(model.phoneNumber, forKey: .phoneNumber)
 	}
 }
