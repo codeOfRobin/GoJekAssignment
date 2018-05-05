@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4233DA23209D9D1300698EFC /* ContactEncoderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4233DA22209D9D1300698EFC /* ContactEncoderTests.swift */; };
 		42C3EEE8209C6323002FE3F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C3EEE7209C6323002FE3F0 /* AppDelegate.swift */; };
 		42C3EEEA209C6323002FE3F0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C3EEE9209C6323002FE3F0 /* ViewController.swift */; };
 		42C3EEED209C6323002FE3F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42C3EEEB209C6323002FE3F0 /* Main.storyboard */; };
@@ -31,6 +32,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4233DA22209D9D1300698EFC /* ContactEncoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactEncoderTests.swift; sourceTree = "<group>"; };
 		42C3EEE4209C6323002FE3F0 /* GoJekTakeHome.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoJekTakeHome.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42C3EEE7209C6323002FE3F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		42C3EEE9209C6323002FE3F0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 			children = (
 				42C3EF09209C6EE9002FE3F0 /* APIClientTests.swift */,
 				42C3EF0B209C8883002FE3F0 /* ContactDecoderTests.swift */,
+				4233DA22209D9D1300698EFC /* ContactEncoderTests.swift */,
 				42C3EEFC209C6325002FE3F0 /* GoJekTakeHomeTests.swift */,
 				42C3EEFE209C6325002FE3F0 /* Info.plist */,
 			);
@@ -227,6 +230,7 @@
 				42C3EF0C209C8883002FE3F0 /* ContactDecoderTests.swift in Sources */,
 				42C3EEFD209C6325002FE3F0 /* GoJekTakeHomeTests.swift in Sources */,
 				42C3EF0A209C6EE9002FE3F0 /* APIClientTests.swift in Sources */,
+				4233DA23209D9D1300698EFC /* ContactEncoderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -102,3 +102,15 @@ extension APIRequestBuilder {
 		let model: Contact.Attributes
 	}
 }
+
+extension APIRequestBuilder.ContactCreationModel: Encodable {
+
+	func encode(to encoder: Encoder) throws {
+		var container = encoder.container(keyedBy: Contact.Attributes.CodingKeys.self)
+		try container.encode(model.firstName, forKey: .firstName)
+		try container.encode(model.lastName, forKey: .lastName)
+		try container.encode(model.email, forKey: .email)
+		try container.encode(model.profilePic, forKey: .profilePic)
+		try container.encode(model.favorite, forKey: .favorite)
+	}
+}

@@ -14,6 +14,7 @@ extension Contact {
 		let firstName: String
 		let lastName: String
 		let email: String?
+		let phoneNumber: String?
 		let profilePic: URL?
 		let favorite: Bool
 	}
@@ -26,6 +27,7 @@ extension Contact.Attributes: Codable {
 		case email
 		case profilePic = "profile_pic"
 		case favorite
+		case phoneNumber = "phone_number"
 	}
 
 	init(from decoder: Decoder) throws {
@@ -34,13 +36,14 @@ extension Contact.Attributes: Codable {
 		lastName = try values.decode(String.self, forKey: .lastName)
 		email = try? values.decode(String.self, forKey: .email)
 		let profileURLString: String? = try? values.decode(String.self, forKey: .profilePic)
-		// Bad API design 🤬
+		// Bad API design 🤬. This should be a nil regardless and not a relative URL.
 		if profileURLString == "/images/missing.png" {
 			profilePic = nil
 		} else {
 			profilePic = profileURLString.flatMap(URL.init)
 		}
 		favorite = try values.decode(Bool.self, forKey: .favorite)
+		phoneNumber = try values.decode(String.self, forKey: .phoneNumber)
 	}
 
 	func encode(to encoder: Encoder) throws {
