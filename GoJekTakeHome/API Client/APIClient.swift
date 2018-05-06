@@ -23,9 +23,9 @@ class APIRequestBuilder {
 		var path: String {
 			switch self {
 			case .contact(let id):
-				return "/\(Constants.contactsPath)/\(id)"
+				return "/\(Constants.contactsPath)/\(id).json"
 			case .contacts:
-				return "/\(Constants.contactsPath)"
+				return "/\(Constants.contactsPath).json"
 			}
 		}
 	}

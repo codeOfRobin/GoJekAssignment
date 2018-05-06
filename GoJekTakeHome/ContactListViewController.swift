@@ -14,6 +14,18 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
 
 	let imageDownloader = ProfilePictureDownloader()
 
+	let session: URLSession
+	let requestBuilder = APIRequestBuilder()
+
+	init(session: URLSession = .shared) {
+		self.session = session
+		super.init(nibName: nil, bundle: nil)
+	}
+
+	required init?(coder aDecoder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+
 	// Don't need actual contacts
 	var contacts: [Contact.Attributes] = []
 
@@ -23,12 +35,25 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
 		self.view.backgroundColor = .white
 
 		self.view.addSubview(tableView)
-
-		let decoder = JSONDecoder()
-		self.contacts = try! decoder.decode(Array<Contact.Attributes>.self, from: sampleContactJSON)
 		tableView.register(ContactTableViewCell.self, forCellReuseIdentifier: "cell")
 
 		self.tableView.dataSource = self
+
+
+		// TODO: Replace with APIClient
+		session.dataTask(with: requestBuilder.request(for: .getContacts)!) { [weak self] (data, response, error) in
+			guard let data = data else {
+				return
+			}
+			let decoder = JSONDecoder()
+			print(String.init(data: data, encoding: .utf8))
+			DispatchQueue.main.sync {
+				self?.contacts = try! decoder.decode(Array<Contact.Attributes>.self, from: data)
+				self?.tableView.reloadData()
+			}
+		}.resume()
+
+
         // Do any additional setup after loading the view.
     }
 

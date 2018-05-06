@@ -42,13 +42,15 @@ class ContactTableViewCell: UITableViewCell {
 	}
 
 	func configure(with contact: Contact.Attributes, imageDownloader: ProfilePictureDownloader) {
-		profileImageView.backgroundColor = .red
 		nameLabel.text = "\(contact.firstName) \(contact.lastName)"
 
 		if let url = contact.profilePic {
+			self.profileImageView.image = #imageLiteral(resourceName: "Placeholder")
 			imageDownloader.getImage(for: url) { [weak self] (image) in
 				self?.profileImageView.image = image
 			}
+		} else {
+			self.profileImageView.image = #imageLiteral(resourceName: "Placeholder")
 		}
 
 	}
