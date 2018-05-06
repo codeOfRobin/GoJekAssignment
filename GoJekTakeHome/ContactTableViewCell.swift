@@ -36,15 +36,21 @@ class ContactTableViewCell: UITableViewCell {
 			profileImageView.heightAnchor.constraint(equalToConstant: 40)
 		])
 
-
 		self.mainStackView.alignment = .center
 		self.mainStackView.spacing = 10.0
 		self.mainStackView.distribution = .fillProportionally
 	}
 
-	func configure(with contact: Contact.Attributes) {
+	func configure(with contact: Contact.Attributes, imageDownloader: ProfilePictureDownloader) {
 		profileImageView.backgroundColor = .red
 		nameLabel.text = "\(contact.firstName) \(contact.lastName)"
+
+		if let url = contact.profilePic {
+			imageDownloader.getImage(for: url) { [weak self] (image) in
+				self?.profileImageView.image = image
+			}
+		}
+
 	}
 
 	required init?(coder aDecoder: NSCoder) {
@@ -57,4 +63,8 @@ class ContactTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+	override func prepareForReuse() {
+		super.prepareForReuse()
+		profileImageView.image = nil
+	}
 }

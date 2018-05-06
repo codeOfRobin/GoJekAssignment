@@ -12,6 +12,8 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
 
 	let tableView = UITableView()
 
+	let imageDownloader = ProfilePictureDownloader()
+
 	// Don't need actual contacts
 	var contacts: [Contact.Attributes] = []
 
@@ -44,7 +46,7 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
 			fatalError("Cannot dequeue cell")
 		}
 
-		cell.configure(with: contact)
+		cell.configure(with: contact, imageDownloader: imageDownloader)
 		return cell
 	}
 

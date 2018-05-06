@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		423EA26B209EE6C600C04974 /* ProfilePictureStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42467C0F209EDDC90012D19D /* ProfilePictureStorage.swift */; };
+		42467C0E209ED8D60012D19D /* ProfilePictureDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42467C0D209ED8D60012D19D /* ProfilePictureDownloader.swift */; };
 		426CD8DF209E20C900EDCA70 /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426CD8DE209E20C900EDCA70 /* ProfileImageView.swift */; };
 		42ADE0F2209E04A500FFE9A9 /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ADE0EE209E02B400FFE9A9 /* ContactTableViewCell.swift */; };
 		42ADE0F3209E04C500FFE9A9 /* UIView+AlignEdges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ADE0F0209E03A800FFE9A9 /* UIView+AlignEdges.swift */; };
@@ -37,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		42467C0D209ED8D60012D19D /* ProfilePictureDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePictureDownloader.swift; sourceTree = "<group>"; };
+		42467C0F209EDDC90012D19D /* ProfilePictureStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePictureStorage.swift; sourceTree = "<group>"; };
 		426CD8DE209E20C900EDCA70 /* ProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
 		42ADE0EE209E02B400FFE9A9 /* ContactTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
 		42ADE0F0209E03A800FFE9A9 /* UIView+AlignEdges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+AlignEdges.swift"; sourceTree = "<group>"; };
@@ -96,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				426CD8DE209E20C900EDCA70 /* ProfileImageView.swift */,
+				42467C0D209ED8D60012D19D /* ProfilePictureDownloader.swift */,
 				G_5802951152977 /* API Client */,
 				G_7644536613666 /* Models */,
 				FR_341978905906 /* AppCoordinator.swift */,
@@ -103,6 +108,7 @@
 				FR_502428738387 /* Assets.xcassets */,
 				FR_849077609555 /* ContactListViewController.swift */,
 				42ADE0EE209E02B400FFE9A9 /* ContactTableViewCell.swift */,
+				42467C0F209EDDC90012D19D /* ProfilePictureStorage.swift */,
 				42ADE0F0209E03A800FFE9A9 /* UIView+AlignEdges.swift */,
 				FR_853635901586 /* Info.plist */,
 				VG_113333450486 /* LaunchScreen.storyboard */,
@@ -209,6 +215,7 @@
 				BF_844831021471 /* AppCoordinator.swift in Sources */,
 				BF_922296752386 /* AppDelegate.swift in Sources */,
 				BF_230153324227 /* Contact.swift in Sources */,
+				423EA26B209EE6C600C04974 /* ProfilePictureStorage.swift in Sources */,
 				BF_193068414746 /* ContactAttributes.swift in Sources */,
 				BF_743843230330 /* ContactCreationModel.swift in Sources */,
 				42ADE0F2209E04A500FFE9A9 /* ContactTableViewCell.swift in Sources */,
@@ -226,6 +233,7 @@
 				BF_147538734531 /* APIClientTests.swift in Sources */,
 				BF_413195347850 /* ContactDecoderTests.swift in Sources */,
 				BF_692541014309 /* ContactEncoderTests.swift in Sources */,
+				42467C0E209ED8D60012D19D /* ProfilePictureDownloader.swift in Sources */,
 				BF_389248635731 /* GoJekTakeHomeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
