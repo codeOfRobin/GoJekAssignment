@@ -6,6 +6,9 @@ targets:
     type: application
     platform: [iOS]
     sources: GoJekTakeHome
+    dependencies:
+      - carthage: AlamofireImage
+      - carthage: Alamofire
     scheme:
       gatherCoverageData: true
       testTargets:
@@ -15,4 +18,4 @@ targets:
     platform: [iOS]
     sources: GoJekTakeHomeTests
     dependencies:
-      - target: GoJekTakeHomeTests_$platform
+      - target: GoJekTakeHome_$platform

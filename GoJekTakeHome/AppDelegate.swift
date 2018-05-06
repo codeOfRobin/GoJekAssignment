@@ -24,12 +24,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		}
 
 		window = UIWindow(frame: UIScreen.main.bounds)
-		let root = RootViewController()
+		let vc = ContactDetailsViewController()
+//		let root = RootViewController(rootViewController: vc)
+//		root.viewControllers = [vc]
+//		self.coordinator = AppCoordinator.init(root: root)
+//		coordinator?.start()
 
-		self.coordinator = AppCoordinator.init(root: root)
-		coordinator?.start()
-
-		window?.rootViewController = root
+		window?.rootViewController = vc
 		window?.makeKeyAndVisible()
 		
 		return true

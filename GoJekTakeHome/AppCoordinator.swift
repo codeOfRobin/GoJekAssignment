@@ -26,8 +26,6 @@ class AppCoordinator: Coordinator {
 	}
 
 	func start() {
-		let emptyViewController = ContactListViewController()
-		self.rootViewController.viewControllers = [emptyViewController]
 	}
 	
 }

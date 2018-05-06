@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AlamofireImage
 
 //TODO: Make sure reuseIdentifiers aren't hardcoded
 class ContactTableViewCell: UITableViewCell {
@@ -41,14 +42,16 @@ class ContactTableViewCell: UITableViewCell {
 		self.mainStackView.distribution = .fillProportionally
 	}
 
-	func configure(with contact: Contact.Attributes, imageDownloader: ProfilePictureDownloader) {
-		nameLabel.text = "\(contact.firstName) \(contact.lastName)"
+	func configure(with contact: Contact.Attributes) {
+		nameLabel.attributedText = NSAttributedString.init(string: "\(contact.firstName) \(contact.lastName)", attributes: Styles.Text.ContactName) 
 
 		if let url = contact.profilePic {
-			self.profileImageView.image = #imageLiteral(resourceName: "Placeholder")
-			imageDownloader.getImage(for: url) { [weak self] (image) in
-				self?.profileImageView.image = image
-			}
+			self.profileImageView.af_setImage(
+				withURL: url,
+				placeholderImage: #imageLiteral(resourceName: "Placeholder"),
+				filter: nil,
+				imageTransition: .crossDissolve(0.2)
+			)
 		} else {
 			self.profileImageView.image = #imageLiteral(resourceName: "Placeholder")
 		}

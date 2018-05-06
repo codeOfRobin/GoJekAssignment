@@ -12,8 +12,6 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
 
 	let tableView = UITableView()
 
-	let imageDownloader = ProfilePictureDownloader()
-
 	let session: URLSession
 	let requestBuilder = APIRequestBuilder()
 
@@ -46,7 +44,6 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
 				return
 			}
 			let decoder = JSONDecoder()
-			print(String.init(data: data, encoding: .utf8))
 			DispatchQueue.main.sync {
 				self?.contacts = try! decoder.decode(Array<Contact.Attributes>.self, from: data)
 				self?.tableView.reloadData()
@@ -54,8 +51,14 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
 		}.resume()
 
 
+		self.title = "Contacts"
+		self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addContact))
         // Do any additional setup after loading the view.
     }
+
+	@objc func addContact() {
+		
+	}
 
 	func numberOfSections(in tableView: UITableView) -> Int {
 		return 1
@@ -71,7 +74,7 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
 			fatalError("Cannot dequeue cell")
 		}
 
-		cell.configure(with: contact, imageDownloader: imageDownloader)
+		cell.configure(with: contact)
 		return cell
 	}
 
