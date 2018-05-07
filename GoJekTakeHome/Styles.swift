@@ -22,6 +22,7 @@ enum Constants {
 
 	enum Sizes {
 		static let avatarSize: CGFloat = 40.0
+		static let functionButtonEdge: CGFloat = 40.0
 	}
 }
 
