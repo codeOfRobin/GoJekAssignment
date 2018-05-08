@@ -25,7 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 		window = UIWindow(frame: UIScreen.main.bounds)
 		let contact = Contact.Attributes.init(firstName: "asdkjfnkj", lastName: "sadkfjnasdkf", email: "sadkjfnskdf", phoneNumber: "asdlfnlsdfljsad", profilePic: nil, favorite: true)
-		let vc = ContactDetailsViewController.init(contact: contact)
+//		let vc = ContactDetailsViewController.init(contact: contact)
+		let vc = ModifyContactsViewController()
 
 		let nav = UINavigationController(rootViewController: vc)
 		window?.rootViewController = nav
