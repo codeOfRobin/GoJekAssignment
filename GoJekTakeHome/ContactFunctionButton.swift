@@ -16,17 +16,20 @@ class ContactFunctionButton: UIView {
 		self.button = button
 		super.init(frame: .zero)
 
-		label.text = text
+		label.attributedText = NSAttributedString(string: text, attributes: Styles.Text.contactFunctionLabel)
 		stackView.addArrangedSubview(button)
 		stackView.addArrangedSubview(label)
 		stackView.axis = .vertical
 		stackView.alignment = .center
+		button.contentEdgeInsets = .zero
+
+		stackView.spacing = 5.0
 		self.addSubview(stackView)
 
 
 		NSLayoutConstraint.activate([
-			button.widthAnchor.constraint(equalToConstant: Constants.Sizes.avatarSize),
-			button.heightAnchor.constraint(equalToConstant: Constants.Sizes.avatarSize)
+			button.widthAnchor.constraint(equalToConstant: Constants.Sizes.functionButtonEdge),
+			button.heightAnchor.constraint(equalToConstant: Constants.Sizes.functionButtonEdge)
 			])
 
 		stackView.translatesAutoresizingMaskIntoConstraints = false

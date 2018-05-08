@@ -26,12 +26,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		window = UIWindow(frame: UIScreen.main.bounds)
 		let contact = Contact.Attributes.init(firstName: "asdkjfnkj", lastName: "sadkfjnasdkf", email: "sadkjfnskdf", phoneNumber: "asdlfnlsdfljsad", profilePic: nil, favorite: true)
 		let vc = ContactDetailsViewController.init(contact: contact)
-//		let root = RootViewController(rootViewController: vc)
-//		root.viewControllers = [vc]
-//		self.coordinator = AppCoordinator.init(root: root)
-//		coordinator?.start()
 
-		window?.rootViewController = vc
+		let nav = UINavigationController(rootViewController: vc)
+		window?.rootViewController = nav
 		window?.makeKeyAndVisible()
 		
 		return true

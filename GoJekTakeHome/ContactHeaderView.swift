@@ -25,52 +25,74 @@ class ContactHeaderView: UITableViewHeaderFooterView {
 
 	let buttonStack = UIStackView()
 
+	let gradientLayer = CAGradientLayer()
+
 	let flaggyFavoriteButton = FlaggyButton(trueImage: #imageLiteral(resourceName: "Favorite"), falseImage: #imageLiteral(resourceName: "Unfavorite"))
 	let otherButtons: [ContactFunctionButton] = {
 		let phoneButton = UIButton()
-		phoneButton.setImage(#imageLiteral(resourceName: "Placeholder"), for: .normal)
+		phoneButton.setImage(#imageLiteral(resourceName: "call"), for: .normal)
 
 		let messageButton = UIButton()
-		messageButton.setImage(#imageLiteral(resourceName: "Placeholder"), for: .normal)
+		messageButton.setImage(#imageLiteral(resourceName: "Sms"), for: .normal)
 
 		let emailButton = UIButton()
-		emailButton.setImage(#imageLiteral(resourceName: "Placeholder"), for: .normal)
+		emailButton.setImage(#imageLiteral(resourceName: "Email"), for: .normal)
 
-		let phone = ContactFunctionButton(button: phoneButton, text: "Call")
-		let message = ContactFunctionButton(button: messageButton, text: "Message")
-		let email = ContactFunctionButton(button: emailButton, text: "Email")
+		let phone = ContactFunctionButton(button: phoneButton, text: "call")
+		let message = ContactFunctionButton(button: messageButton, text: "message")
+		let email = ContactFunctionButton(button: emailButton, text: "email")
 
-		return [phone, message, email]
+		return [message, phone, email]
 	}()
+
+	let insets = UIEdgeInsets(top: 19, left: 44, bottom: 12, right: 44)
 
 	override init(reuseIdentifier: String?) {
 		self.favoriteButton = ContactFunctionButton.init(button: flaggyFavoriteButton, text: "Favorite")
 		super.init(reuseIdentifier: reuseIdentifier)
-		self.addSubview(stackView)
+		self.contentView.addSubview(stackView)
 
 		otherButtons.forEach(buttonStack.addArrangedSubview(_:))
 		buttonStack.addArrangedSubview(favoriteButton)
+		buttonStack.distribution = .equalSpacing
 
 		stackView.addArrangedSubview(profilePicImageView)
 		stackView.addArrangedSubview(nameLabel)
 		stackView.addArrangedSubview(buttonStack)
-		buttonStack.distribution = .fillEqually
+		buttonStack.distribution = .equalSpacing
 
-		stackView.alignment = .center
+		NSLayoutConstraint.activate([
+			buttonStack.leftAnchor.constraint(equalTo: stackView.leftAnchor),
+			buttonStack.rightAnchor.constraint(equalTo: stackView.rightAnchor)
+		])
+
 
 		stackView.axis = .vertical
-		stackView.alignEdges(to: self)
+		stackView.alignment = .center
+		stackView.alignEdges(to: self.contentView, insets: insets)
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 		NSLayoutConstraint.activate([
-			profilePicImageView.widthAnchor.constraint(equalToConstant: 120),
-			profilePicImageView.heightAnchor.constraint(equalToConstant: 120)
-			])
-		self.backgroundColor = .red
+			profilePicImageView.widthAnchor.constraint(equalToConstant: Constants.Sizes.largeAvatarSize),
+			profilePicImageView.heightAnchor.constraint(equalToConstant: Constants.Sizes.largeAvatarSize)
+		])
+
+		self.stackView.setCustomSpacing(8.0, after: profilePicImageView)
+		self.stackView.setCustomSpacing(24.0, after: nameLabel)
+
+		self.gradientLayer.colors = [UIColor.white.cgColor, UIColor(red:0.87, green:0.96, blue:0.94, alpha:1.00).cgColor]
+		self.gradientLayer.startPoint = CGPoint.init(x: 0.5, y: 0)
+		self.gradientLayer.endPoint = CGPoint.init(x: 0.5, y: 1.0)
+		self.contentView.layer.insertSublayer(gradientLayer, at: 0)
+	}
+
+	override func layoutSublayers(of layer: CALayer) {
+		super.layoutSublayers(of: layer)
+		gradientLayer.frame = layer.bounds
 	}
 
 	func configure(name: String, image: UIImage) {
 		profilePicImageView.image = image
-		nameLabel.text = name
+		nameLabel.attributedText = NSAttributedString.init(string: name, attributes: Styles.Text.contactHeaderName)
 	}
 
 	required init?(coder aDecoder: NSCoder) {

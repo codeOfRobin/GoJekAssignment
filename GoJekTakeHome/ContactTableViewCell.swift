@@ -43,7 +43,7 @@ class ContactTableViewCell: UITableViewCell {
 	}
 
 	func configure(with contact: Contact.Attributes) {
-		nameLabel.attributedText = NSAttributedString.init(string: "\(contact.firstName) \(contact.lastName)", attributes: Styles.Text.ContactName) 
+		nameLabel.attributedText = NSAttributedString.init(string: "\(contact.firstName) \(contact.lastName)", attributes: Styles.Text.contactName) 
 
 		if let url = contact.profilePic {
 			self.profileImageView.af_setImage(

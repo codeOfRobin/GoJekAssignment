@@ -7,6 +7,35 @@
 
 import UIKit
 
+class ViewController: UIViewController {
+
+	let gradientLayer = CAGradientLayer()
+	init() {
+		super.init(nibName: nil, bundle: nil)
+	}
+
+	required init?(coder aDecoder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		self.view.backgroundColor = .white
+
+		gradientLayer.frame = view.bounds
+		gradientLayer.colors = [
+			UIColor(red:1.00, green:0.37, blue:0.23, alpha:1.0).cgColor,
+			UIColor(red:1.00, green:0.16, blue:0.41, alpha:1.0).cgColor
+		]
+		gradientLayer.locations = [0.0, 0.5]
+		view.layer.insertSublayer(gradientLayer, at: 0)
+	}
+
+	override func viewDidLayoutSubviews() {
+		super.viewDidLayoutSubviews()
+	}
+}
+
 class ContactDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
 	let contact: Contact.Attributes
@@ -61,7 +90,7 @@ class ContactDetailsViewController: UIViewController, UITableViewDataSource, UIT
 		guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? ContactHeaderView else {
 			fatalError()
 		}
-		header.configure(name: "sdakfnksdjnfkjn", image: #imageLiteral(resourceName: "Placeholder"))
+		header.configure(name: "Polly Richardson", image: #imageLiteral(resourceName: "Polly"))
 		return header
 	}
 

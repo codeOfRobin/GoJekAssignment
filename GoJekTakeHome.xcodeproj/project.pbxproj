@@ -60,7 +60,7 @@
 		FR_167845839850 /* ContactEncoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactEncoderTests.swift; sourceTree = "<group>"; };
 		FR_190026448363 /* UIView+AlignEdges.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+AlignEdges.swift"; sourceTree = "<group>"; };
 		FR_223159548802 /* ContactTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
-		FR_230151005726 /* GoJekTakeHome.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = GoJekTakeHome.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FR_230151005726 /* GoJekTakeHome.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoJekTakeHome.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FR_278688865717 /* GoJekTakeHomeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoJekTakeHomeTests.swift; sourceTree = "<group>"; };
 		FR_325278453961 /* GoJekTakeHomeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoJekTakeHomeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FR_340526918583 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
@@ -238,7 +238,11 @@
 			attributes = {
 				LastUpgradeCheck = 0930;
 				TargetAttributes = {
+					NT_230151005726 = {
+						DevelopmentTeam = FT6Z43AJD2;
+					};
 					NT_325278453961 = {
+						DevelopmentTeam = FT6Z43AJD2;
 						TestTargetID = NT_230151005726;
 					};
 				};
@@ -378,6 +382,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = FT6Z43AJD2;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -397,6 +402,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = FT6Z43AJD2;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -490,6 +496,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = FT6Z43AJD2;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
