@@ -47,6 +47,8 @@ class ContactHeaderView: UITableViewHeaderFooterView {
 
 	let insets = UIEdgeInsets(top: 19, left: 44, bottom: 12, right: 44)
 
+	let gradientColors = [UIColor(red:0.99, green:0.99, blue:0.99, alpha:1.00), UIColor(red:0.87, green:0.96, blue:0.94, alpha:1.00)]
+
 	override init(reuseIdentifier: String?) {
 		self.favoriteButton = ContactFunctionButton.init(button: flaggyFavoriteButton, text: "Favorite")
 		super.init(reuseIdentifier: reuseIdentifier)
@@ -79,7 +81,7 @@ class ContactHeaderView: UITableViewHeaderFooterView {
 		self.stackView.setCustomSpacing(8.0, after: profilePicImageView)
 		self.stackView.setCustomSpacing(24.0, after: nameLabel)
 
-		self.gradientLayer.colors = [UIColor.white.cgColor, UIColor(red:0.87, green:0.96, blue:0.94, alpha:1.00).cgColor]
+		self.gradientLayer.colors = gradientColors.map { $0.cgColor }
 		self.gradientLayer.startPoint = CGPoint.init(x: 0.5, y: 0)
 		self.gradientLayer.endPoint = CGPoint.init(x: 0.5, y: 1.0)
 		self.contentView.layer.insertSublayer(gradientLayer, at: 0)

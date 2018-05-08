@@ -40,10 +40,16 @@ enum Styles {
 		static let contactName = style(from: Colors.defaultText, font: UIFont.preferredFont(forTextStyle: .body))
 		static let contactHeaderName = style(from: Colors.defaultText, fontSize: UIFont.preferredFont(forTextStyle: .title3).pointSize, fontWeight: .bold)
 		static let contactFunctionLabel = style(from: Colors.defaultText, font: UIFont.preferredFont(forTextStyle: .caption1))
+
+		enum ContactAttributes {
+			static let title = style(from: Colors.defaultText.withAlphaComponent(0.5), font: UIFont.preferredFont(forTextStyle: .callout))
+			static let value = style(from: Colors.defaultText, font: UIFont.preferredFont(forTextStyle: .callout))
+		}
 	}
 
 	enum Colors {
 		static let defaultText = UIColor(red:0.29, green:0.29, blue:0.29, alpha:1.00)
 		static let tintColor = UIColor(red:0.35, green:0.89, blue:0.76, alpha:1.00)
+		static let background = UIColor(red:0.98, green:0.98, blue:0.98, alpha:1.00)
 	}
 }

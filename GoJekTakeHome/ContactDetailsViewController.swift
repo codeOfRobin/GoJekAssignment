@@ -52,6 +52,7 @@ class ContactDetailsViewController: UIViewController, UITableViewDataSource, UIT
 	let contactHeaderView = ContactHeaderView(frame: .zero)
 
 	let tableView = UITableView.init(frame: .zero, style: .grouped)
+	let leftWidth: CGFloat = 70
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,6 +75,8 @@ class ContactDetailsViewController: UIViewController, UITableViewDataSource, UIT
 		tableView.register(ContactHeaderView.self, forHeaderFooterViewReuseIdentifier: "header")
 		tableView.register(ContactAttributeCell.self, forCellReuseIdentifier: "cell")
 		tableView.tableFooterView = UIView()
+
+		self.tableView.backgroundColor = Styles.Colors.background
         // Do any additional setup after loading the view.
     }
 
@@ -99,7 +102,14 @@ class ContactDetailsViewController: UIViewController, UITableViewDataSource, UIT
 			fatalError()
 		}
 
-		cell.configure(title: "asdkjfnksdjf", value: "sadfkjnsadfkjsadf")
+		switch indexPath.row {
+		case 0:
+			cell.configure(title: "mobile", value: "+ 91 7868765643", leftWidth: leftWidth)
+		case 1:
+			cell.configure(title: "email", value: "polly.rich@gmail.com", leftWidth: leftWidth)
+		default:
+			break
+		}
 		return cell
 	}
 
