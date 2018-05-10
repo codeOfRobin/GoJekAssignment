@@ -12,6 +12,10 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
 
 	let tableView = UITableView()
 
+	let collation = UILocalizedIndexedCollation.current()
+
+
+
 	let session: URLSession
 	let requestBuilder = APIRequestBuilder()
 
@@ -25,7 +29,20 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
 	}
 
 	// Don't need actual contacts
-	var contacts: [Contact.Attributes] = []
+	var sections: [[Contact.Attributes]] = []
+	var contacts: [Contact.Attributes] = [] {
+		didSet {
+			sections = Array.init(repeating: [], count: collation.sectionTitles.count)
+
+			let sortedObjects = contacts
+			for object in sortedObjects {
+				let sectionNumber = collation.section(for: object.name, collationStringSelector: #selector(getter: NSString.lowercased))
+				sections[sectionNumber].append(object)
+			}
+
+			self.tableView.reloadData()
+		}
+	}
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,15 +78,15 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
 	}
 
 	func numberOfSections(in tableView: UITableView) -> Int {
-		return 1
+		return sections.count
 	}
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return contacts.count
+		return sections[section].count
 	}
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let contact = contacts[indexPath.row]
+		let contact = sections[indexPath.section][indexPath.row]
 		guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? ContactTableViewCell else {
 			fatalError("Cannot dequeue cell")
 		}
@@ -81,6 +98,18 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 		tableView.frame = view.bounds
+	}
+
+	func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+		return collation.sectionTitles[section]
+	}
+
+	func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+		return collation.sectionIndexTitles
+	}
+
+	func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
+		return collation.section(forSectionIndexTitle: index)
 	}
 
 }

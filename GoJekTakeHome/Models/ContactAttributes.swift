@@ -17,6 +17,10 @@ extension Contact {
 		let phoneNumber: String?
 		let profilePic: URL?
 		let favorite: Bool
+
+		var name: String {
+			return [firstName, lastName].joined(separator: " ")
+		}
 	}
 }
 

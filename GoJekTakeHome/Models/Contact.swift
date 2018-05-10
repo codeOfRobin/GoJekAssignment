@@ -33,3 +33,13 @@ extension Contact: Decodable {
 	}
 
 }
+
+extension Contact: Comparable {
+	static func < (lhs: Contact, rhs: Contact) -> Bool {
+		return lhs.model.name < lhs.model.name
+	}
+
+	static func == (lhs: Contact, rhs: Contact) -> Bool {
+		return lhs.model.firstName == rhs.model.firstName && lhs.model.lastName == rhs.model.lastName
+	}
+}
