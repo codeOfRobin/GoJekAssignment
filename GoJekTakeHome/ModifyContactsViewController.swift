@@ -7,14 +7,27 @@
 
 import UIKit
 
-class ModifyContactsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+protocol AddUpdateContactsViewControllerDelegate: class {
+	func cancelButtonTapped()
+	func saveButtonTapped(with contact: Contact)
+}
 
-	let contact: Contact.Attributes?
+class AddUpdateContactsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+
 	let tableView = UITableView(frame: .zero, style: .grouped)
 	let leftWidth: CGFloat = 82
 
-	init() {
-		self.contact = nil
+	weak var delegate: AddUpdateContactsViewControllerDelegate?
+
+	enum InitialState {
+		case add
+		case update(Contact)
+	}
+
+	let initialState: InitialState
+
+	init(initialState: InitialState) {
+		self.initialState = initialState
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -37,8 +50,20 @@ class ModifyContactsViewController: UIViewController, UITableViewDataSource, UIT
 		tableView.register(EditableContactAttributeCell.self, forCellReuseIdentifier: "cell")
 		tableView.sectionHeaderHeight = UITableViewAutomaticDimension
 		tableView.tableFooterView = UIView()
+
+		self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonTapped))
+		self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonTapped))
         // Do any additional setup after loading the view.
     }
+
+	@objc func saveButtonTapped() {
+		//TODO: Fix this to call an actual save method
+		delegate?.cancelButtonTapped()
+	}
+
+	@objc func cancelButtonTapped() {
+		delegate?.cancelButtonTapped()
+	}
 
 	func numberOfSections(in tableView: UITableView) -> Int {
 		return 1

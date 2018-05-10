@@ -30,33 +30,33 @@ protocol Coordinator {
 // http://khanlou.com/2015/10/coordinators-redux/
 class AppCoordinator: Coordinator {
 
-	let allContactListCoordinator = AllContactListCoordinator()
+	let allContactListCoordinator: AllContactListCoordinator
 
-	let rootViewController: UINavigationController
+	let rootViewController: UINavigationController = {
+		let nav = UINavigationController()
+		nav.navigationBar.prefersLargeTitles = false
+		return nav
+	}()
+
 	let window: UIWindow
 
 	init(window: UIWindow) {
 		self.window = window
-		rootViewController = UINavigationController()
-		rootViewController.navigationBar.prefersLargeTitles = false
 
+		self.window.rootViewController = rootViewController
+		self.window.makeKeyAndVisible()
+
+		self.allContactListCoordinator = AllContactListCoordinator(rootViewController: rootViewController)
+
+		rootViewController.navigationBar.tintColor = Styles.Colors.tintColor
 	}
 
 	func start() {
+		allContactListCoordinator.start()
 	}
-	
+
 }
 
-class ModifyContactCoordinator: Coordinator {
-	func start() {
-
-	}
-}
-
-
-protocol AddContactDelegate: class {
-	func userDidAdd(_ contact: Contact)
-}
 
 class AddContactCoordinator: Coordinator {
 
@@ -68,21 +68,56 @@ class AddContactCoordinator: Coordinator {
 
 class ContactDetailCoordinator: Coordinator {
 
-	var modifyContactCoordinator: ModifyContactCoordinator?
-
 	func start() {
 
 	}
 }
 
-class AllContactListCoordinator: Coordinator {
+class AllContactListCoordinator: Coordinator, ContactListDelegate {
+
+	let rootViewController: UINavigationController
+
+	init(rootViewController: UINavigationController) {
+		self.rootViewController = rootViewController
+	}
+
+	func didAskForNewContact(vc: ContactListViewController) {
+		addUpdateContactCoordinator = AddUpdateContactCoordinator.init(rootViewController: rootViewController)
+		addUpdateContactCoordinator?.delegate = self
+		addUpdateContactCoordinator?.start()
+	}
+
+	func didAskForContactDetails(vc: ContactListViewController, contact: Contact) {
+		let vc = ContactDetailsViewController(contact: contact)
+		rootViewController.pushViewController(vc, animated: true)
+	}
+
 
 	let viewController = ContactListViewController()
 
-	var addContactCoordinator: ModifyContactCoordinator?
-	var contactDetailCoordinator: ModifyContactCoordinator?
+	var addUpdateContactCoordinator: AddUpdateContactCoordinator?
+	var contactDetailCoordinator: ContactDetailCoordinator?
 
 	func start() {
+		let contactsListViewController = ContactListViewController()
+		self.rootViewController.viewControllers = [contactsListViewController]
+		contactsListViewController.delegate = self
 	}
+
+}
+
+extension AllContactListCoordinator: AddUpdateContactCoordinatorDelegate {
+	func addUpdateContactCoordinatorDidRequestCancel(_ addUpdateContactCoordinator: AddUpdateContactCoordinator) {
+		self.addUpdateContactCoordinator?.rootViewController.dismiss(animated: true, completion: nil)
+	}
+
+	func addUpdateContactCoordinator(_ addUpdateContactCoordinator: AddUpdateContactCoordinator, didAddContact contactPayload: Contact.Attributes) {
+
+	}
+
+	func addUpdateContactCoordinator(_ addUpdateContactCoordinator: AddUpdateContactCoordinator, didUpdateContact contactPayload: Contact) {
+
+	}
+
 
 }

@@ -8,16 +8,19 @@
 
 import UIKit
 
-class ContactListViewController: UIViewController, UITableViewDataSource {
+protocol ContactListDelegate: class {
+	func didAskForNewContact(vc: ContactListViewController)
+	func didAskForContactDetails(vc: ContactListViewController, contact: Contact)
+}
+
+class ContactListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
 	let tableView = UITableView()
-
 	let collation = UILocalizedIndexedCollation.current()
-
-
-
 	let session: URLSession
 	let requestBuilder = APIRequestBuilder()
+
+	weak var delegate: ContactListDelegate?
 
 	init(session: URLSession = .shared) {
 		self.session = session
@@ -29,14 +32,14 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
 	}
 
 	// Don't need actual contacts
-	var sections: [[Contact.Attributes]] = []
-	var contacts: [Contact.Attributes] = [] {
+	var sections: [[Contact]] = []
+	var contacts: [Contact] = [] {
 		didSet {
 			sections = Array.init(repeating: [], count: collation.sectionTitles.count)
 
 			let sortedObjects = contacts
 			for object in sortedObjects {
-				let sectionNumber = collation.section(for: object.name, collationStringSelector: #selector(getter: NSString.lowercased))
+				let sectionNumber = collation.section(for: object.model.name, collationStringSelector: #selector(getter: NSString.lowercased))
 				sections[sectionNumber].append(object)
 			}
 
@@ -52,7 +55,8 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
 		self.view.addSubview(tableView)
 		tableView.register(ContactTableViewCell.self, forCellReuseIdentifier: "cell")
 
-		self.tableView.dataSource = self
+		tableView.dataSource = self
+		tableView.delegate = self
 
 
 		// TODO: Replace with APIClient
@@ -62,19 +66,19 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
 			}
 			let decoder = JSONDecoder()
 			DispatchQueue.main.sync {
-				self?.contacts = try! decoder.decode(Array<Contact.Attributes>.self, from: data)
+				self?.contacts = try! decoder.decode(Array<Contact>.self, from: data)
 				self?.tableView.reloadData()
 			}
 		}.resume()
 
 
 		self.title = "Contacts"
-		self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addContact))
+		self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addContactButtonTapped))
         // Do any additional setup after loading the view.
     }
 
-	@objc func addContact() {
-		
+	@objc func addContactButtonTapped() {
+		delegate?.didAskForNewContact(vc: self)
 	}
 
 	func numberOfSections(in tableView: UITableView) -> Int {
@@ -91,7 +95,7 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
 			fatalError("Cannot dequeue cell")
 		}
 
-		cell.configure(with: contact)
+		cell.configure(with: contact.model)
 		return cell
 	}
 
@@ -106,6 +110,12 @@ class ContactListViewController: UIViewController, UITableViewDataSource {
 
 	func sectionIndexTitles(for tableView: UITableView) -> [String]? {
 		return collation.sectionIndexTitles
+	}
+
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		let contact = sections[indexPath.section][indexPath.row]
+		delegate?.didAskForContactDetails(vc: self, contact: contact)
+		tableView.deselectRow(at: indexPath, animated: true)
 	}
 
 	func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {

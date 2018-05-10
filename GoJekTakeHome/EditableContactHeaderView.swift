@@ -1,5 +1,5 @@
 //
-//  AddContactsViewController.swift
+//  EditableContactHeaderView.swift
 //  GoJekTakeHome_iOS
 //
 //  Created by Robin Malhotra on 10/05/18.
@@ -74,77 +74,4 @@ class EditableContactAttributeCell: UITableViewCell {
 		valueLabel.attributedText = NSAttributedString(string: value, attributes: Styles.Text.ContactAttributes.value)
 		titleLabel.textAlignment = .right
 	}
-}
-
-class AddContactsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-
-	weak var delegate: AddContactDelegate?
-
-	let tableView = UITableView()
-	let leftWidth: CGFloat = 82
-
-	init() {
-		super.init(nibName: nil, bundle: nil)
-	}
-
-	override func viewDidLoad() {
-		super.viewDidLoad()
-
-		self.view.addSubview(tableView)
-	}
-
-	override func viewDidLayoutSubviews() {
-		super.viewDidLayoutSubviews()
-		tableView.frame = view.bounds
-
-		tableView.register(EditableContactAttributeCell.self, forCellReuseIdentifier: "cell")
-		tableView.register(EditableContactHeaderView.self, forHeaderFooterViewReuseIdentifier: "header")
-		tableView.delegate = self
-		tableView.dataSource = self
-		tableView.tableFooterView = UIView()
-	}
-
-	func numberOfSections(in tableView: UITableView) -> Int {
-		return 1
-	}
-
-	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		// FirstName, LastName, mobile, email
-		return 4
-	}
-
-	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? EditableContactAttributeCell else {
-			//TODO: Fix these errors to something more descriptive
-			fatalError("can't dequeue cell")
-		}
-
-		switch indexPath.row {
-		case 0:
-			cell.configure(title: "First Name", value: "", leftWidth: leftWidth)
-		case 1:
-			cell.configure(title: "Last Name", value: "", leftWidth: leftWidth)
-		case 2:
-			cell.configure(title: "Mobile", value: "", leftWidth: leftWidth)
-		case 3:
-			cell.configure(title: "Email", value: "", leftWidth: leftWidth)
-		default:
-			break
-		}
-		return cell
-	}
-
-	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-		guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? EditableContactHeaderView else {
-			//TODO: Fix these errors to something more descriptive
-			fatalError("can't dequeue header")
-		}
-
-		return header
-	}
-
-	required init?(coder aDecoder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
-	}
-
 }

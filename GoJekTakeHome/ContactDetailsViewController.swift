@@ -38,9 +38,9 @@ class ViewController: UIViewController {
 
 class ContactDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-	let contact: Contact.Attributes
+	let contact: Contact
 
-	init(contact: Contact.Attributes) {
+	init(contact: Contact) {
 		self.contact = contact
 		super.init(nibName: nil, bundle: nil)
 	}
