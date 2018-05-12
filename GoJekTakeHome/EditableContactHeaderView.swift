@@ -18,6 +18,7 @@ class EditableContactHeaderView: UITableViewHeaderFooterView {
 		self.contentView.addSubview(profileImageView)
 		profileImageView.translatesAutoresizingMaskIntoConstraints = false
 		profileImageView.image = #imageLiteral(resourceName: "Placeholder")
+		profileImageView.clipsToBounds = true
 		NSLayoutConstraint.activate([
 			profileImageView.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 19),
 			profileImageView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -30),
@@ -44,6 +45,7 @@ class EditableContactHeaderView: UITableViewHeaderFooterView {
 	override func layoutSublayers(of layer: CALayer) {
 		super.layoutSublayers(of: layer)
 		gradientLayer.frame = layer.bounds
+		profileImageView.layer.cornerRadius = profileImageView.bounds.height/2
 	}
 }
 

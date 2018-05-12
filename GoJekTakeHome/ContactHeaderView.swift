@@ -63,6 +63,8 @@ class ContactHeaderView: UITableViewHeaderFooterView {
 		stackView.addArrangedSubview(buttonStack)
 		buttonStack.distribution = .equalSpacing
 
+		profilePicImageView.clipsToBounds = true
+
 		NSLayoutConstraint.activate([
 			buttonStack.leftAnchor.constraint(equalTo: stackView.leftAnchor),
 			buttonStack.rightAnchor.constraint(equalTo: stackView.rightAnchor)
@@ -90,6 +92,7 @@ class ContactHeaderView: UITableViewHeaderFooterView {
 	override func layoutSublayers(of layer: CALayer) {
 		super.layoutSublayers(of: layer)
 		gradientLayer.frame = layer.bounds
+		profilePicImageView.layer.cornerRadius = profilePicImageView.bounds.height/2
 	}
 
 	func configure(name: String, avatar: Avatar) {

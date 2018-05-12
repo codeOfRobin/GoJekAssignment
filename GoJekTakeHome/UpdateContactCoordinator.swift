@@ -15,6 +15,8 @@ protocol UpdateContactCoordinatorDelegate: class {
 class UpdateContactCoordinator: Coordinator, UpsertContactsViewControllerDelegate {
 	weak var delegate: UpdateContactCoordinatorDelegate?
 
+	var viewController: UINavigationController?
+
 	let rootViewController: UINavigationController
 	let contact: Contact
 
@@ -25,7 +27,12 @@ class UpdateContactCoordinator: Coordinator, UpsertContactsViewControllerDelegat
 
 	func start() {
 		let vc = UpsertContactsViewController(initialState: .update(contact))
-		let nav = UINavigationController(rootViewController: vc)
+
+		viewController = UINavigationController(rootViewController: vc)
+
+		guard let nav = viewController else {
+			return
+		}
 
 		nav.navigationBar.tintColor = Styles.Colors.tintColor
 		vc.delegate = self
@@ -33,6 +40,7 @@ class UpdateContactCoordinator: Coordinator, UpsertContactsViewControllerDelegat
 	}
 
 	func cancelButtonTapped() {
+		viewController?.dismiss(animated: true, completion: nil)
 		self.delegate?.updateContactCoordinatorDidRequestCancel(self)
 	}
 

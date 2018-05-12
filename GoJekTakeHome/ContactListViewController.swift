@@ -72,6 +72,7 @@ class ContactListViewController: UIViewController, UITableViewDataSource, UITabl
 		}.resume()
 
 
+		self.tableView.sectionIndexColor = Styles.Colors.tintColor
 		self.title = "Contacts"
 		self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addContactButtonTapped))
         // Do any additional setup after loading the view.
