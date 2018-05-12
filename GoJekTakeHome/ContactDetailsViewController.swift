@@ -7,38 +7,20 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
-	let gradientLayer = CAGradientLayer()
-	init() {
-		super.init(nibName: nil, bundle: nil)
-	}
-
-	required init?(coder aDecoder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
-	}
-
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		self.view.backgroundColor = .white
-
-		gradientLayer.frame = view.bounds
-		gradientLayer.colors = [
-			UIColor(red:1.00, green:0.37, blue:0.23, alpha:1.0).cgColor,
-			UIColor(red:1.00, green:0.16, blue:0.41, alpha:1.0).cgColor
-		]
-		gradientLayer.locations = [0.0, 0.5]
-		view.layer.insertSublayer(gradientLayer, at: 0)
-	}
-
-	override func viewDidLayoutSubviews() {
-		super.viewDidLayoutSubviews()
-	}
+protocol ContactDetailsViewControllerDelegate: class {
+	// TODO: make sure delegate type signatures pass in the VC
+	func editButtonTapped(_ vc: ContactDetailsViewController, contact: Contact)
 }
 
 class ContactDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
 	let contact: Contact
+
+	weak var delegate: ContactDetailsViewControllerDelegate?
+
+	let contactHeaderView = ContactHeaderView(frame: .zero)
+	let tableView = UITableView(frame: .zero, style: .grouped)
+	let leftWidth: CGFloat = 70
 
 	init(contact: Contact) {
 		self.contact = contact
@@ -49,17 +31,9 @@ class ContactDetailsViewController: UIViewController, UITableViewDataSource, UIT
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	let contactHeaderView = ContactHeaderView(frame: .zero)
-
-	let tableView = UITableView.init(frame: .zero, style: .grouped)
-	let leftWidth: CGFloat = 70
-
     override func viewDidLoad() {
         super.viewDidLoad()
 		self.view.backgroundColor = .white
-
-		contactHeaderView.translatesAutoresizingMaskIntoConstraints = false
-		contactHeaderView.configure(name: "asdkfnkadsjfnkjdsnf", image: #imageLiteral(resourceName: "Placeholder"))
 
 		tableView.translatesAutoresizingMaskIntoConstraints = false
 
@@ -76,9 +50,15 @@ class ContactDetailsViewController: UIViewController, UITableViewDataSource, UIT
 		tableView.register(ContactAttributeCell.self, forCellReuseIdentifier: "cell")
 		tableView.tableFooterView = UIView()
 
+		self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .edit, target: self, action: #selector(editButtonTapped))
+
 		self.tableView.backgroundColor = Styles.Colors.background
         // Do any additional setup after loading the view.
     }
+
+	@objc func editButtonTapped() {
+		delegate?.editButtonTapped(self, contact: contact)
+	}
 
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
@@ -93,7 +73,15 @@ class ContactDetailsViewController: UIViewController, UITableViewDataSource, UIT
 		guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? ContactHeaderView else {
 			fatalError()
 		}
-		header.configure(name: "Polly Richardson", image: #imageLiteral(resourceName: "Polly"))
+		let avatar: Avatar = {
+			if let url = contact.model.profilePic {
+				return .url(url)
+			} else {
+				return .image(#imageLiteral(resourceName: "Placeholder"))
+			}
+		}()
+		header.configure(name: contact.model.name, avatar: avatar)
+
 		return header
 	}
 
@@ -104,9 +92,12 @@ class ContactDetailsViewController: UIViewController, UITableViewDataSource, UIT
 
 		switch indexPath.row {
 		case 0:
-			cell.configure(title: "mobile", value: "+ 91 7868765643", leftWidth: leftWidth)
+			//TODO: Maybe don't display these cells?
+			cell.configure(title: "mobile", value: contact.model.phoneNumber ?? "", leftWidth: leftWidth)
 		case 1:
-			cell.configure(title: "email", value: "polly.rich@gmail.com", leftWidth: leftWidth)
+			//TODO: Maybe don't display these cells if null?
+			//TODO: Replace all strings with Constants
+			cell.configure(title: "email", value: contact.model.email ?? "", leftWidth: leftWidth)
 		default:
 			break
 		}

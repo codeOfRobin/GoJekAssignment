@@ -33,6 +33,10 @@ class EditableContactHeaderView: UITableViewHeaderFooterView {
 		self.layer.insertSublayer(gradientLayer, at: 0)
 	}
 
+	func configure(with avatar: Avatar) {
+		self.profileImageView.setAvatar(avatar)
+	}
+
 	required init?(coder aDecoder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}

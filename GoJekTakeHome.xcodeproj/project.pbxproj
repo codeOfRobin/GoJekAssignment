@@ -17,6 +17,10 @@
 		4243B1DB209F0C590011F4F4 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4243B1D9209F0BA00011F4F4 /* Styles.swift */; };
 		4243B1DD209F11180011F4F4 /* ModifyContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4243B1DC209F11180011F4F4 /* ModifyContactsViewController.swift */; };
 		4243B1DF209F3C8D0011F4F4 /* ContactDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4243B1DE209F3C8D0011F4F4 /* ContactDetailsViewController.swift */; };
+		42C8F34F20A6DBC30097E399 /* UpdateContactCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C8F34E20A6DBC30097E399 /* UpdateContactCoordinator.swift */; };
+		42C8F35120A6E7060097E399 /* ContactDetailsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C8F35020A6E7060097E399 /* ContactDetailsCoordinator.swift */; };
+		42C8F35320A6E7190097E399 /* AllContactsListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C8F35220A6E7190097E399 /* AllContactsListCoordinator.swift */; };
+		42C8F35520A72CA00097E399 /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C8F35420A72CA00097E399 /* Avatar.swift */; };
 		BF_123190302910 /* AlamofireImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FR_130774298384 /* AlamofireImage.framework */; };
 		BF_126340961853 /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_162254522797 /* ProfileImageView.swift */; };
 		BF_147538734531 /* APIClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FR_844965156192 /* APIClientTests.swift */; };
@@ -59,6 +63,10 @@
 		4243B1D9209F0BA00011F4F4 /* Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
 		4243B1DC209F11180011F4F4 /* ModifyContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyContactsViewController.swift; sourceTree = "<group>"; };
 		4243B1DE209F3C8D0011F4F4 /* ContactDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailsViewController.swift; sourceTree = "<group>"; };
+		42C8F34E20A6DBC30097E399 /* UpdateContactCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateContactCoordinator.swift; sourceTree = "<group>"; };
+		42C8F35020A6E7060097E399 /* ContactDetailsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailsCoordinator.swift; sourceTree = "<group>"; };
+		42C8F35220A6E7190097E399 /* AllContactsListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllContactsListCoordinator.swift; sourceTree = "<group>"; };
+		42C8F35420A72CA00097E399 /* Avatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Avatar.swift; sourceTree = "<group>"; };
 		FR_113333450486 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FR_130774298384 /* AlamofireImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlamofireImage.framework; sourceTree = "<group>"; };
 		FR_154265439934 /* ContactDecoderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDecoderTests.swift; sourceTree = "<group>"; };
@@ -157,6 +165,9 @@
 		G_8116575626559 /* GoJekTakeHome */ = {
 			isa = PBXGroup;
 			children = (
+				42C8F35420A72CA00097E399 /* Avatar.swift */,
+				42C8F35020A6E7060097E399 /* ContactDetailsCoordinator.swift */,
+				42C8F35220A6E7190097E399 /* AllContactsListCoordinator.swift */,
 				423C4B5120A480130012CD53 /* AddUpdateCoordinator.swift */,
 				423C4B4F20A43FDB0012CD53 /* EditableContactHeaderView.swift */,
 				423C4B4B20A329ED0012CD53 /* SortedArray.swift */,
@@ -171,6 +182,7 @@
 				FR_849077609555 /* ContactListViewController.swift */,
 				4243B1DC209F11180011F4F4 /* ModifyContactsViewController.swift */,
 				4243B1DE209F3C8D0011F4F4 /* ContactDetailsViewController.swift */,
+				42C8F34E20A6DBC30097E399 /* UpdateContactCoordinator.swift */,
 				423657C220A06C4400AE3C0E /* ContactAttributeCell.swift */,
 				FR_223159548802 /* ContactTableViewCell.swift */,
 				4243B1D9209F0BA00011F4F4 /* Styles.swift */,
@@ -339,9 +351,12 @@
 				423C4B5020A43FDB0012CD53 /* EditableContactHeaderView.swift in Sources */,
 				4243B1DD209F11180011F4F4 /* ModifyContactsViewController.swift in Sources */,
 				423657BF20A06B6B00AE3C0E /* ContactFunctionButton.swift in Sources */,
+				42C8F34F20A6DBC30097E399 /* UpdateContactCoordinator.swift in Sources */,
 				423C4B4C20A329ED0012CD53 /* SortedArray.swift in Sources */,
 				BF_922296752386 /* AppDelegate.swift in Sources */,
+				42C8F35120A6E7060097E399 /* ContactDetailsCoordinator.swift in Sources */,
 				BF_230153324227 /* Contact.swift in Sources */,
+				42C8F35520A72CA00097E399 /* Avatar.swift in Sources */,
 				BF_193068414746 /* ContactAttributes.swift in Sources */,
 				423657C320A06C4400AE3C0E /* ContactAttributeCell.swift in Sources */,
 				BF_743843230330 /* ContactCreationModel.swift in Sources */,
@@ -351,6 +366,7 @@
 				BF_822655389729 /* ContactUpdatingModel.swift in Sources */,
 				BF_126340961853 /* ProfileImageView.swift in Sources */,
 				423657BD20A06B3900AE3C0E /* ContactHeaderView.swift in Sources */,
+				42C8F35320A6E7190097E399 /* AllContactsListCoordinator.swift in Sources */,
 				BF_863132139984 /* UIView+AlignEdges.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

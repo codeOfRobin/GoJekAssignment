@@ -92,8 +92,8 @@ class ContactHeaderView: UITableViewHeaderFooterView {
 		gradientLayer.frame = layer.bounds
 	}
 
-	func configure(name: String, image: UIImage) {
-		profilePicImageView.image = image
+	func configure(name: String, avatar: Avatar) {
+		profilePicImageView.setAvatar(avatar)
 		nameLabel.attributedText = NSAttributedString.init(string: name, attributes: Styles.Text.contactHeaderName)
 	}
 

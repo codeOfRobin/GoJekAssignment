@@ -1,5 +1,5 @@
 //
-//  ModifyContactsViewController.swift
+//  UpsertContactsViewController.swift
 //  GoJekTakeHome_iOS
 //
 //  Created by Robin Malhotra on 06/05/18.
@@ -7,17 +7,17 @@
 
 import UIKit
 
-protocol AddUpdateContactsViewControllerDelegate: class {
+protocol UpsertContactsViewControllerDelegate: class {
 	func cancelButtonTapped()
 	func saveButtonTapped(with contact: Contact)
 }
 
-class AddUpdateContactsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class UpsertContactsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
 	let tableView = UITableView(frame: .zero, style: .grouped)
 	let leftWidth: CGFloat = 82
 
-	weak var delegate: AddUpdateContactsViewControllerDelegate?
+	weak var delegate: UpsertContactsViewControllerDelegate?
 
 	enum InitialState {
 		case add
@@ -25,6 +25,14 @@ class AddUpdateContactsViewController: UIViewController, UITableViewDataSource, 
 	}
 
 	let initialState: InitialState
+	var contact: Contact? {
+		switch initialState {
+		case .add:
+			return nil
+		case .update(let contact):
+			return contact
+		}
+	}
 
 	init(initialState: InitialState) {
 		self.initialState = initialState
@@ -78,15 +86,16 @@ class AddUpdateContactsViewController: UIViewController, UITableViewDataSource, 
 			//TODO: Make these kinds of errors better
 			fatalError("cell not dequeued")
 		}
+
 		switch indexPath.row {
 		case 0:
-			cell.configure(title: "First Name", value: "Polly", leftWidth: leftWidth)
+			cell.configure(title: "First Name", value: contact?.model.firstName ?? "", leftWidth: leftWidth)
 		case 1:
-			cell.configure(title: "Last Name", value: "Richardson", leftWidth: leftWidth)
+			cell.configure(title: "Last Name", value: contact?.model.lastName ?? "", leftWidth: leftWidth)
 		case 2:
-			cell.configure(title: "email", value: "askdfnkj", leftWidth: leftWidth)
+			cell.configure(title: "email", value: contact?.model.email ?? "", leftWidth: leftWidth)
 		case 3:
-			cell.configure(title: "mobile", value: "sadfkjnsdfkjn", leftWidth: leftWidth)
+			cell.configure(title: "mobile", value: contact?.model.phoneNumber ?? "", leftWidth: leftWidth)
 		default:
 			break
 		}
@@ -96,6 +105,9 @@ class AddUpdateContactsViewController: UIViewController, UITableViewDataSource, 
 	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? EditableContactHeaderView else {
 			return nil
+		}
+		if let contact = contact, let url = contact.model.profilePic {
+			header.configure(with: .url(url))
 		}
 		return header
 	}

@@ -15,6 +15,7 @@ extension Contact {
 		let lastName: String
 		let email: String?
 		let phoneNumber: String?
+		// TODO: turn this into an `Avatar` type
 		let profilePic: URL?
 		let favorite: Bool
 
