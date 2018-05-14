@@ -12,6 +12,9 @@
 		423657C120A06B7F00AE3C0E /* FlaggyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423657C020A06B7F00AE3C0E /* FlaggyButton.swift */; };
 		423657C320A06C4400AE3C0E /* ContactAttributeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423657C220A06C4400AE3C0E /* ContactAttributeCell.swift */; };
 		4236BF0A20A8B2480031ED42 /* UIViewController+ErrorAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4236BF0920A8B2480031ED42 /* UIViewController+ErrorAlert.swift */; };
+		4236BF0E20A978960031ED42 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4236BF0D20A978960031ED42 /* LoadingViewController.swift */; };
+		4236BF1020A97F1F0031ED42 /* UIViewController+Children.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4236BF0F20A97F1F0031ED42 /* UIViewController+Children.swift */; };
+		4236BF1220A97F420031ED42 /* ErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4236BF1120A97F420031ED42 /* ErrorViewController.swift */; };
 		423C4B4C20A329ED0012CD53 /* SortedArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423C4B4B20A329ED0012CD53 /* SortedArray.swift */; };
 		423C4B5020A43FDB0012CD53 /* EditableContactHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423C4B4F20A43FDB0012CD53 /* EditableContactHeaderView.swift */; };
 		423C4B5220A480130012CD53 /* AddUpdateCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423C4B5120A480130012CD53 /* AddUpdateCoordinator.swift */; };
@@ -59,6 +62,9 @@
 		423657C020A06B7F00AE3C0E /* FlaggyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlaggyButton.swift; sourceTree = "<group>"; };
 		423657C220A06C4400AE3C0E /* ContactAttributeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactAttributeCell.swift; sourceTree = "<group>"; };
 		4236BF0920A8B2480031ED42 /* UIViewController+ErrorAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ErrorAlert.swift"; sourceTree = "<group>"; };
+		4236BF0D20A978960031ED42 /* LoadingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
+		4236BF0F20A97F1F0031ED42 /* UIViewController+Children.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Children.swift"; sourceTree = "<group>"; };
+		4236BF1120A97F420031ED42 /* ErrorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorViewController.swift; sourceTree = "<group>"; };
 		423C4B4B20A329ED0012CD53 /* SortedArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortedArray.swift; sourceTree = "<group>"; };
 		423C4B4F20A43FDB0012CD53 /* EditableContactHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableContactHeaderView.swift; sourceTree = "<group>"; };
 		423C4B5120A480130012CD53 /* AddUpdateCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUpdateCoordinator.swift; sourceTree = "<group>"; };
@@ -167,6 +173,9 @@
 		G_8116575626559 /* GoJekTakeHome */ = {
 			isa = PBXGroup;
 			children = (
+				4236BF0D20A978960031ED42 /* LoadingViewController.swift */,
+				4236BF1120A97F420031ED42 /* ErrorViewController.swift */,
+				4236BF0F20A97F1F0031ED42 /* UIViewController+Children.swift */,
 				4236BF0920A8B2480031ED42 /* UIViewController+ErrorAlert.swift */,
 				42C8F35420A72CA00097E399 /* Avatar.swift */,
 				42C8F35020A6E7060097E399 /* ContactDetailsCoordinator.swift */,
@@ -358,6 +367,7 @@
 				42C8F34F20A6DBC30097E399 /* UpdateContactCoordinator.swift in Sources */,
 				423C4B4C20A329ED0012CD53 /* SortedArray.swift in Sources */,
 				BF_922296752386 /* AppDelegate.swift in Sources */,
+				4236BF1220A97F420031ED42 /* ErrorViewController.swift in Sources */,
 				42C8F35120A6E7060097E399 /* ContactDetailsCoordinator.swift in Sources */,
 				BF_230153324227 /* Contact.swift in Sources */,
 				42C8F35520A72CA00097E399 /* Avatar.swift in Sources */,
@@ -365,10 +375,12 @@
 				423657C320A06C4400AE3C0E /* ContactAttributeCell.swift in Sources */,
 				BF_743843230330 /* ContactCreationModel.swift in Sources */,
 				4243B1DF209F3C8D0011F4F4 /* ContactDetailsViewController.swift in Sources */,
+				4236BF1020A97F1F0031ED42 /* UIViewController+Children.swift in Sources */,
 				BF_764452402698 /* ContactListViewController.swift in Sources */,
 				BF_310827716886 /* ContactTableViewCell.swift in Sources */,
 				BF_822655389729 /* ContactUpdatingModel.swift in Sources */,
 				BF_126340961853 /* ProfileImageView.swift in Sources */,
+				4236BF0E20A978960031ED42 /* LoadingViewController.swift in Sources */,
 				423657BD20A06B3900AE3C0E /* ContactHeaderView.swift in Sources */,
 				42C8F35320A6E7190097E399 /* AllContactsListCoordinator.swift in Sources */,
 				BF_863132139984 /* UIView+AlignEdges.swift in Sources */,

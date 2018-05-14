@@ -16,7 +16,7 @@ class ContactDetailsCoordinator: Coordinator, ContactDetailsViewControllerDelega
 	let rootViewController: UINavigationController
 	var contact: Contact {
 		didSet {
-			self.viewController?.contact = contact
+			self.viewController?.state = .loadedFullDetails(contact)
 		}
 	}
 	let services: Services
@@ -35,7 +35,7 @@ class ContactDetailsCoordinator: Coordinator, ContactDetailsViewControllerDelega
 	}
 
 	func start() {
-		viewController = ContactDetailsViewController(contact: contact)
+		viewController = ContactDetailsViewController(contact: contact, services: services)
 		guard let vc = viewController else {
 			//TODO: Add error messages for these common cases (vc initialization, dequeuing using Constants.swift
 			fatalError()
@@ -87,6 +87,9 @@ extension ContactDetailsCoordinator: UpdateContactCoordinatorDelegate {
 	func updateContactCoordinator(_ updateContactCoordinator: UpdateContactCoordinator, didUpdateContact contact: Contact) {
 		updateContactCoordinator.viewController?.dismiss(animated: true, completion: nil)
 		self.contact = contact
+		//TODO: I don't think calling this here would be a good idea
+		self.viewController?.state = .loadedFullDetails(contact)
+		self.viewController?.tableView.reloadData()
 		guard let index = services.contacts.elements.index(where: { (contactInfo) -> Bool in
 			contactInfo.id == contact.id
 		}) else {

@@ -31,6 +31,30 @@ class UpsertContactsViewController: UIViewController, UITableViewDataSource, UIT
 	}
 
 	let initialState: InitialState
+
+	enum State {
+		case entry
+		case saving
+	}
+	var state: State = .saving {
+		didSet {
+			guard oldValue != state else {
+				return
+			}
+
+			switch state {
+			case .entry:
+				self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonTapped))
+				self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonTapped))
+			case .saving:
+				let activityView = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+				activityView.startAnimating()
+				self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: activityView)
+				self.navigationItem.leftBarButtonItem = nil
+			}
+		}
+	}
+
 	var contact: Contact? {
 		switch initialState {
 		case .add:
@@ -65,8 +89,7 @@ class UpsertContactsViewController: UIViewController, UITableViewDataSource, UIT
 		tableView.sectionHeaderHeight = UITableViewAutomaticDimension
 		tableView.tableFooterView = UIView()
 
-		self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonTapped))
-		self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonTapped))
+		self.state = .entry
 
 		self.firstName = contact?.model.firstName
 		self.lastName = contact?.model.lastName
@@ -78,7 +101,8 @@ class UpsertContactsViewController: UIViewController, UITableViewDataSource, UIT
 	@objc func saveButtonTapped() {
 		//TODO: Fix this to call an actual save method
 		// All fields of the new contact are mandatory in this screen (so says the mighty PDF!)
-
+		self.state = .saving
+		
 		let missingFields: [String] = { [weak self] in
 			var missingFields: [String] = []
 			if self?.firstName == nil {
@@ -108,7 +132,7 @@ class UpsertContactsViewController: UIViewController, UITableViewDataSource, UIT
 				return
 		}
 
-		let attrs = Contact.Attributes.init(firstName: firstName, lastName: lastName, email: email, phoneNumber: phoneNumber, profilePic: nil, favorite: false)
+		let attrs = Contact.Attributes(firstName: firstName, lastName: lastName, email: email, phoneNumber: phoneNumber, profilePic: nil, favorite: false)
 		self.delegate?.saveButtonTapped(with: attrs)
 	}
 

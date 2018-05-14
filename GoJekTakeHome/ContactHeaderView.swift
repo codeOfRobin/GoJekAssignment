@@ -119,7 +119,8 @@ class ContactHeaderView: UITableViewHeaderFooterView {
 		profilePicImageView.layer.cornerRadius = profilePicImageView.bounds.height/2
 	}
 
-	func configure(name: String, avatar: Avatar) {
+	func configure(name: String, avatar: Avatar, favoriteState: Bool) {
+		flaggyFavoriteButton.flag  = favoriteState
 		profilePicImageView.setAvatar(avatar)
 		nameLabel.attributedText = NSAttributedString.init(string: name, attributes: Styles.Text.contactHeaderName)
 	}

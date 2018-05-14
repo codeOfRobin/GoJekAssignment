@@ -14,34 +14,84 @@ protocol ContactDetailsViewControllerDelegate: class {
 	func changeFavoriteState(_ vc: ContactDetailsViewController, contact: Contact, state: Bool)
 }
 
-class ContactDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ContactHeaderDelegate {
-
-	var contact: Contact {
-		didSet {
-			self.tableView.reloadData()
-		}
+extension ContactDetailsViewController.State: Equatable {}
+internal func == (lhs: ContactDetailsViewController.State, rhs: ContactDetailsViewController.State) -> Bool {
+	switch (lhs, rhs) {
+	case (.loading, .loading):
+		return true
+	case (.error(let error1), .error(let error2)):
+		// We could make this more efficient by doing a deeper comparison, but I'm gonna be lazy here 😛
+		return error1.0.localizedDescription == error2.0.localizedDescription
+	case (.loadedFullDetails, .loadedFullDetails):
+		return true
+	default: return false
 	}
+}
+
+class ContactDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ContactHeaderDelegate {
 
 	weak var delegate: ContactDetailsViewControllerDelegate?
 
 	let contactHeaderView = ContactHeaderView(frame: .zero)
 	let tableView = UITableView(frame: .zero, style: .grouped)
 	let leftWidth: CGFloat = 70
+	let services: Services
 
 	enum State {
-		case loading
+		case loading(Contact)
 		case loadedFullDetails(Contact)
+		case error(Error, Contact)
 	}
 
-	var state: State = .loading
-
-	init(contact: Contact) {
-		self.contact = contact
+	init(contact: Contact, services: Services) {
+		self.services = services
+		self.state = .loading(contact)
 		super.init(nibName: nil, bundle: nil)
 	}
 
 	required init?(coder aDecoder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
+	}
+
+	lazy var loadingVC = LoadingViewController(nibName: nil, bundle: nil)
+	lazy var errorVC = ErrorViewController(nibName: nil, bundle: nil)
+
+	var state: State {
+		didSet {
+			guard oldValue != state else {
+				return
+			}
+
+			switch oldValue {
+			case .loading:
+				loadingVC.remove()
+			case .error:
+				errorVC.remove()
+			default:
+				break
+			}
+
+			switch state {
+			case .loading:
+				self.add(loadingVC)
+			case .error(let error, _):
+				self.errorVC.configure(text: error.localizedDescription)
+				self.add(errorVC)
+			case .loadedFullDetails:
+				self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .edit, target: self, action: #selector(editButtonTapped))
+			}
+		}
+	}
+
+	var contact: Contact {
+		switch state {
+		case .error(_, let contact):
+			return contact
+		case .loading(let contact):
+			return contact
+		case .loadedFullDetails(let contact):
+			return contact
+		}
 	}
 
     override func viewDidLoad() {
@@ -63,15 +113,23 @@ class ContactDetailsViewController: UIViewController, UITableViewDataSource, UIT
 		tableView.register(ContactAttributeCell.self, forCellReuseIdentifier: "cell")
 		tableView.tableFooterView = UIView()
 
-		self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .edit, target: self, action: #selector(editButtonTapped))
-
 		self.tableView.backgroundColor = Styles.Colors.background
-
-		NotificationCenter.default.addObserver(forName: Constants.notifications.conversationListChanged, object: nil, queue: .main) { (_) in
-
-		}
         // Do any additional setup after loading the view.
+		loadDetails()
     }
+
+	func loadDetails() {
+		if case .loading(let partialContact) = state {
+			self.services.apiClient.getContact(with: partialContact.id) { [weak self] (result) in
+				switch result {
+				case .success(let contact):
+					self?.state = .loadedFullDetails(contact)
+				case .failure(let error):
+					self?.state = .error(error, partialContact)
+				}
+			}
+		}
+	}
 
 	@objc func editButtonTapped() {
 		delegate?.editButtonTapped(self, contact: contact)
@@ -97,7 +155,7 @@ class ContactDetailsViewController: UIViewController, UITableViewDataSource, UIT
 				return .image(#imageLiteral(resourceName: "Placeholder"))
 			}
 		}()
-		header.configure(name: contact.model.name, avatar: avatar)
+		header.configure(name: contact.model.name, avatar: avatar, favoriteState: contact.model.favorite)
 		header.delegate = self
 		return header
 	}
@@ -107,13 +165,21 @@ class ContactDetailsViewController: UIViewController, UITableViewDataSource, UIT
 			fatalError()
 		}
 
+		let valueToDisplay: (String?) -> String = { string in
+			if case .loading = self.state {
+				return Constants.Strings.loading
+			} else {
+				return string ?? ""
+			}
+		}
+
 		switch indexPath.row {
 		case 0:
 			//TODO: Maybe don't display these cells?
-			cell.configure(title: Constants.Strings.mobile, value: contact.model.phoneNumber ?? "", leftWidth: leftWidth)
+			cell.configure(title: Constants.Strings.mobile, value: valueToDisplay(contact.model.phoneNumber), leftWidth: leftWidth)
 		case 1:
 			//TODO: Maybe don't display these cells if null?
-			cell.configure(title: Constants.Strings.email, value: contact.model.email ?? "", leftWidth: leftWidth)
+			cell.configure(title: Constants.Strings.email, value: valueToDisplay(contact.model.email), leftWidth: leftWidth)
 		default:
 			break
 		}

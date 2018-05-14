@@ -127,6 +127,18 @@ class APIClient {
 		return task
 	}
 
+	@discardableResult func getContact(with id: Int, onComplete completion: @escaping (Result<Contact>) -> Void) -> URLSessionDataTask? {
+		guard let request = requestBuilder.request(for: .getContact(id: id)) else {
+			completion(.failure(APIError.requestCreationFailed))
+			return nil
+		}
+
+		let task = self.performRequest(request: request, for: Contact.self) { (result) in
+			completion(result)
+		}
+		return task
+	}
+
 	@discardableResult func setFavoriteState(_ state: Bool, of contact: Contact, onComplete completion: @escaping (Result<Contact>) -> Void) -> URLSessionDataTask? {
 		let model = contact.model
 		let attrs = Contact.Attributes.init(firstName: model.firstName, lastName: model.lastName, email: model.email, phoneNumber: model.phoneNumber, profilePic: model.profilePic, favorite: state)
