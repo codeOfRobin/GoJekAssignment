@@ -50,8 +50,8 @@ class EditableContactHeaderView: UITableViewHeaderFooterView {
 }
 
 class EditableContactAttributeCell: UITableViewCell {
-	let titleLabel = UITextField()
-	let valueLabel = UITextField()
+	let titleLabel = UILabel()
+	let valueTextField = UITextField()
 	let stackView = UIStackView()
 
 	override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -61,7 +61,7 @@ class EditableContactAttributeCell: UITableViewCell {
 		stackView.translatesAutoresizingMaskIntoConstraints = false
 
 		stackView.addArrangedSubview(titleLabel)
-		stackView.addArrangedSubview(valueLabel)
+		stackView.addArrangedSubview(valueTextField)
 		stackView.spacing = 32
 
 		stackView.alignEdges(to: self, insets: UIEdgeInsets(top: 18, left: 25, bottom: 18, right: 25))
@@ -72,12 +72,13 @@ class EditableContactAttributeCell: UITableViewCell {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	func configure(title: String, value: String, leftWidth: CGFloat) {
+	func configure(title: String, value: String, leftWidth: CGFloat, keyboardType: UIKeyboardType =  UIKeyboardType.default) {
 		NSLayoutConstraint.activate([
 			self.titleLabel.widthAnchor.constraint(equalToConstant: leftWidth)
 			])
 		titleLabel.attributedText = NSAttributedString(string: title, attributes: Styles.Text.ContactAttributes.title)
-		valueLabel.attributedText = NSAttributedString(string: value, attributes: Styles.Text.ContactAttributes.value)
+		valueTextField.attributedText = NSAttributedString(string: value, attributes: Styles.Text.ContactAttributes.value)
+		valueTextField.keyboardType = keyboardType
 		titleLabel.textAlignment = .right
 	}
 }

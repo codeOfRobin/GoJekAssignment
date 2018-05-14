@@ -8,18 +8,19 @@
 
 import UIKit
 
-public struct Services {
+public class Services {
 
-	public let dataService: DataService
-
-	public init() {
-		self.dataService = DataService()
+	var contacts = SortedArray<Contact>() {
+		didSet {
+			NotificationCenter.default.post(name: Constants.notifications.conversationListChanged, object: nil)
+		}
 	}
-}
+	let apiClient: APIClient
 
-public class DataService {
+	init(session: URLSession = .shared) {
+		self.apiClient = APIClient.init(session: session)
+	}
 
-	var contacts = SortedArray<Contact>()
 }
 
 
@@ -39,6 +40,7 @@ class AppCoordinator: Coordinator {
 	}()
 
 	let window: UIWindow
+	let services: Services
 
 	init(window: UIWindow) {
 		self.window = window
@@ -46,7 +48,9 @@ class AppCoordinator: Coordinator {
 		self.window.rootViewController = rootViewController
 		self.window.makeKeyAndVisible()
 
-		self.allContactListCoordinator = AllContactListCoordinator(rootViewController: rootViewController)
+		self.services = Services()
+
+		self.allContactListCoordinator = AllContactListCoordinator(rootViewController: rootViewController, services: services)
 
 		rootViewController.navigationBar.tintColor = Styles.Colors.tintColor
 	}

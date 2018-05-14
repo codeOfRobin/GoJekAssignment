@@ -44,7 +44,7 @@ class UpdateContactCoordinator: Coordinator, UpsertContactsViewControllerDelegat
 		self.delegate?.updateContactCoordinatorDidRequestCancel(self)
 	}
 
-	func saveButtonTapped(with contact: Contact) {
+	func saveButtonTapped(with attrs: Contact.Attributes) {
 		self.delegate?.updateContactCoordinatorDidRequestCancel(self)
 	}
 }

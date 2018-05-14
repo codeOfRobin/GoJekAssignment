@@ -9,13 +9,19 @@ import UIKit
 
 protocol UpsertContactsViewControllerDelegate: class {
 	func cancelButtonTapped()
-	func saveButtonTapped(with contact: Contact)
+	func saveButtonTapped(with attrs: Contact.Attributes)
 }
 
 class UpsertContactsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
 	let tableView = UITableView(frame: .zero, style: .grouped)
 	let leftWidth: CGFloat = 82
+	var currentlyFocussedCellIndex: IndexPath?
+
+	var firstName: String?
+	var lastName: String?
+	var email: String?
+	var phoneNumber: String?
 
 	weak var delegate: UpsertContactsViewControllerDelegate?
 
@@ -66,7 +72,39 @@ class UpsertContactsViewController: UIViewController, UITableViewDataSource, UIT
 
 	@objc func saveButtonTapped() {
 		//TODO: Fix this to call an actual save method
-		delegate?.cancelButtonTapped()
+		// All fields of the new contact are mandatory in this screen (so says the mighty PDF!)
+
+		let missingFields: [String] = { [weak self] in
+			var missingFields: [String] = []
+			if self?.firstName == nil {
+				missingFields += [Constants.Strings.firstName]
+			}
+			if self?.lastName == nil {
+				missingFields += [Constants.Strings.lastName]
+			}
+			if self?.phoneNumber == nil {
+				missingFields += [Constants.Strings.phoneNumber]
+			}
+			if self?.email == nil {
+				missingFields += [Constants.Strings.email]
+			}
+			return missingFields
+		}()
+
+		if !missingFields.isEmpty {
+			self.showErrorAlert(description: Constants.Strings.missingFields + missingFields.joined(separator: ", "))
+			return
+		}
+
+		guard let firstName = firstName,
+			let lastName = lastName,
+			let email = email,
+			let phoneNumber = phoneNumber else {
+				return
+		}
+
+		let attrs = Contact.Attributes.init(firstName: firstName, lastName: lastName, email: email, phoneNumber: phoneNumber, profilePic: nil, favorite: false)
+		self.delegate?.saveButtonTapped(with: attrs)
 	}
 
 	@objc func cancelButtonTapped() {
@@ -90,15 +128,21 @@ class UpsertContactsViewController: UIViewController, UITableViewDataSource, UIT
 		switch indexPath.row {
 		case 0:
 			cell.configure(title: "First Name", value: contact?.model.firstName ?? "", leftWidth: leftWidth)
+			cell.valueTextField.addTarget(self, action: #selector(firstNameTextFieldChanged(textField:)), for: .editingChanged)
 		case 1:
 			cell.configure(title: "Last Name", value: contact?.model.lastName ?? "", leftWidth: leftWidth)
+			cell.valueTextField.addTarget(self, action: #selector(lastNameTextFieldChanged(textField:)), for: .editingChanged)
 		case 2:
-			cell.configure(title: "email", value: contact?.model.email ?? "", leftWidth: leftWidth)
+			cell.configure(title: "email", value: contact?.model.email ?? "", leftWidth: leftWidth, keyboardType: .emailAddress)
+			cell.valueTextField.addTarget(self, action: #selector(emailTextFieldChanged(textField:)), for: .editingChanged)
 		case 3:
-			cell.configure(title: "mobile", value: contact?.model.phoneNumber ?? "", leftWidth: leftWidth)
+			cell.configure(title: "mobile", value: contact?.model.phoneNumber ?? "", leftWidth: leftWidth, keyboardType: .phonePad)
+			cell.valueTextField.addTarget(self, action: #selector(phoneNumberTextFieldChanged(textField:)), for: .editingChanged)
 		default:
 			break
 		}
+
+		cell.valueTextField.delegate = self
 		return cell
 	}
 
@@ -119,5 +163,32 @@ class UpsertContactsViewController: UIViewController, UITableViewDataSource, UIT
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 		tableView.frame = view.bounds
+	}
+}
+
+extension UpsertContactsViewController: UITextFieldDelegate {
+	func textFieldDidBeginEditing(_ textField: UITextField) {
+		if let cell = textField.superview?.superview as? EditableContactAttributeCell,
+			let indexPath = tableView.indexPath(for: cell) {
+			currentlyFocussedCellIndex = indexPath
+//			let frame = tableView.rectForRow(at: indexPath)
+			tableView.contentInset.bottom = 300
+		}
+	}
+
+	@objc func firstNameTextFieldChanged(textField: UITextField) {
+		firstName = textField.text
+	}
+
+	@objc func lastNameTextFieldChanged(textField: UITextField) {
+		lastName = textField.text
+	}
+
+	@objc func emailTextFieldChanged(textField: UITextField) {
+		email = textField.text
+	}
+
+	@objc func phoneNumberTextFieldChanged(textField: UITextField) {
+		phoneNumber = textField.text
 	}
 }

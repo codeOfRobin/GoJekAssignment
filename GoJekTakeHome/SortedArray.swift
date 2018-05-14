@@ -21,7 +21,7 @@ See http://swift.org/CONTRIBUTORS.txt for Swift project authors
 public struct SortedArray<Element>: CustomStringConvertible {
 
 	/// Storage for our elements.
-	fileprivate var elements: [Element]
+	var elements: [Element]
 
 	/// A predicate that returns `true` if its first argument should be ordered
 	/// before its second argument; otherwise, `false`.
@@ -122,11 +122,6 @@ public struct SortedArray<Element>: CustomStringConvertible {
 				newElements.startIndex ... rhsIndex,
 				with: newElements[newElements.startIndex ... rhsIndex])
 		}
-	}
-
-	/// Returns the values as an array.
-	public var values: [Element] {
-		return elements
 	}
 
 	public var description: String {

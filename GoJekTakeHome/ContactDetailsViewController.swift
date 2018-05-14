@@ -10,9 +10,11 @@ import UIKit
 protocol ContactDetailsViewControllerDelegate: class {
 	// TODO: make sure delegate type signatures pass in the VC
 	func editButtonTapped(_ vc: ContactDetailsViewController, contact: Contact)
+	func backButtonTapped(_ vc: ContactDetailsViewController)
+	func changeFavoriteState(_ vc: ContactDetailsViewController, contact: Contact, state: Bool)
 }
 
-class ContactDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ContactDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ContactHeaderDelegate {
 
 	let contact: Contact
 
@@ -81,7 +83,7 @@ class ContactDetailsViewController: UIViewController, UITableViewDataSource, UIT
 			}
 		}()
 		header.configure(name: contact.model.name, avatar: avatar)
-
+		header.delegate = self
 		return header
 	}
 
@@ -93,11 +95,10 @@ class ContactDetailsViewController: UIViewController, UITableViewDataSource, UIT
 		switch indexPath.row {
 		case 0:
 			//TODO: Maybe don't display these cells?
-			cell.configure(title: "mobile", value: contact.model.phoneNumber ?? "", leftWidth: leftWidth)
+			cell.configure(title: Constants.Strings.phoneNumber, value: contact.model.phoneNumber ?? "", leftWidth: leftWidth)
 		case 1:
 			//TODO: Maybe don't display these cells if null?
-			//TODO: Replace all strings with Constants
-			cell.configure(title: "email", value: contact.model.email ?? "", leftWidth: leftWidth)
+			cell.configure(title: Constants.Strings.email, value: contact.model.email ?? "", leftWidth: leftWidth)
 		default:
 			break
 		}
@@ -108,9 +109,20 @@ class ContactDetailsViewController: UIViewController, UITableViewDataSource, UIT
 		return 2
 	}
 
+	override func viewDidDisappear(_ animated: Bool) {
+		super.viewDidDisappear(animated)
+		if self.isMovingFromParentViewController {
+			delegate?.backButtonTapped(self)
+		}
+	}
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+
+	func didTapFavorite(with state: Bool) {
+		delegate?.changeFavoriteState(self, contact: contact, state: state)
+	}
 
 }

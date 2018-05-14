@@ -13,7 +13,7 @@ class ContactTableViewCell: UITableViewCell {
 
 	let nameLabel = UILabel()
 	let profileImageView = ProfileImageView(frame: .zero)
-	let starView = UILabel()
+	let starView = UIImageView()
 
 	let mainStackView = UIStackView()
 
@@ -27,6 +27,7 @@ class ContactTableViewCell: UITableViewCell {
 
 		self.mainStackView.addArrangedSubview(profileImageView)
 		self.mainStackView.addArrangedSubview(nameLabel)
+		self.mainStackView.addArrangedSubview(starView)
 
 		self.profileImageView.translatesAutoresizingMaskIntoConstraints = false
 		self.mainStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -34,16 +35,22 @@ class ContactTableViewCell: UITableViewCell {
 
 		NSLayoutConstraint.activate([
 			profileImageView.widthAnchor.constraint(equalToConstant: 40),
-			profileImageView.heightAnchor.constraint(equalToConstant: 40)
+			profileImageView.heightAnchor.constraint(equalToConstant: 40),
+			starView.heightAnchor.constraint(equalToConstant: 18),
+			starView.widthAnchor.constraint(equalToConstant: 18),
 		])
 
+		starView.image = #imageLiteral(resourceName: "Star")
 		self.mainStackView.alignment = .center
 		self.mainStackView.spacing = 10.0
 		self.mainStackView.distribution = .fillProportionally
+
 	}
 
 	func configure(with contact: Contact.Attributes) {
 		nameLabel.attributedText = NSAttributedString.init(string: "\(contact.firstName) \(contact.lastName)", attributes: Styles.Text.contactName) 
+
+		starView.isHidden = !contact.favorite
 
 		if let url = contact.profilePic {
 			self.profileImageView.af_setImage(

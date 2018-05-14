@@ -9,7 +9,7 @@ import UIKit
 
 protocol AddContactCoordinatorDelegate: class {
 	func addContactCoordinatorDidRequestCancel(_ addContactCoordinator: AddContactCoordinator)
-	func addContactCoordinator(_ addContactCoordinator: AddContactCoordinator, didAddContact contactPayload: Contact.Attributes)
+	func addContactCoordinator(_ addContactCoordinator: AddContactCoordinator, didAddContact contact: Contact)
 }
 
 class AddContactCoordinator: Coordinator, UpsertContactsViewControllerDelegate {
@@ -18,9 +18,11 @@ class AddContactCoordinator: Coordinator, UpsertContactsViewControllerDelegate {
 	weak var delegate: AddContactCoordinatorDelegate?
 
 	var viewController: UpsertContactsViewController?
+	let services: Services
 
-	init(rootViewController: UINavigationController) {
+	init(rootViewController: UINavigationController, services: Services) {
 		self.rootViewController = rootViewController
+		self.services = services
 	}
 
 	func start() {
@@ -41,8 +43,15 @@ class AddContactCoordinator: Coordinator, UpsertContactsViewControllerDelegate {
 		self.delegate?.addContactCoordinatorDidRequestCancel(self)
 	}
 
-	func saveButtonTapped(with contact: Contact) {
-		self.delegate?.addContactCoordinatorDidRequestCancel(self)
+	func saveButtonTapped(with attrs: Contact.Attributes) {
+		services.apiClient.createContact(with: attrs) { (result) in
+			switch result {
+			case .success(let contact):
+				self.delegate?.addContactCoordinator(self, didAddContact: contact)
+			case .failure(let error):
+				print(error.localizedDescription)
+			}
+		}
 	}
 }
 

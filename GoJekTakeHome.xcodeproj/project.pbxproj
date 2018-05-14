@@ -11,11 +11,12 @@
 		423657BF20A06B6B00AE3C0E /* ContactFunctionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423657BE20A06B6B00AE3C0E /* ContactFunctionButton.swift */; };
 		423657C120A06B7F00AE3C0E /* FlaggyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423657C020A06B7F00AE3C0E /* FlaggyButton.swift */; };
 		423657C320A06C4400AE3C0E /* ContactAttributeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423657C220A06C4400AE3C0E /* ContactAttributeCell.swift */; };
+		4236BF0A20A8B2480031ED42 /* UIViewController+ErrorAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4236BF0920A8B2480031ED42 /* UIViewController+ErrorAlert.swift */; };
 		423C4B4C20A329ED0012CD53 /* SortedArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423C4B4B20A329ED0012CD53 /* SortedArray.swift */; };
 		423C4B5020A43FDB0012CD53 /* EditableContactHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423C4B4F20A43FDB0012CD53 /* EditableContactHeaderView.swift */; };
 		423C4B5220A480130012CD53 /* AddUpdateCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 423C4B5120A480130012CD53 /* AddUpdateCoordinator.swift */; };
 		4243B1DB209F0C590011F4F4 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4243B1D9209F0BA00011F4F4 /* Styles.swift */; };
-		4243B1DD209F11180011F4F4 /* ModifyContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4243B1DC209F11180011F4F4 /* ModifyContactsViewController.swift */; };
+		4243B1DD209F11180011F4F4 /* UpsertContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4243B1DC209F11180011F4F4 /* UpsertContactsViewController.swift */; };
 		4243B1DF209F3C8D0011F4F4 /* ContactDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4243B1DE209F3C8D0011F4F4 /* ContactDetailsViewController.swift */; };
 		42C8F34F20A6DBC30097E399 /* UpdateContactCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C8F34E20A6DBC30097E399 /* UpdateContactCoordinator.swift */; };
 		42C8F35120A6E7060097E399 /* ContactDetailsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C8F35020A6E7060097E399 /* ContactDetailsCoordinator.swift */; };
@@ -57,11 +58,12 @@
 		423657BE20A06B6B00AE3C0E /* ContactFunctionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactFunctionButton.swift; sourceTree = "<group>"; };
 		423657C020A06B7F00AE3C0E /* FlaggyButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlaggyButton.swift; sourceTree = "<group>"; };
 		423657C220A06C4400AE3C0E /* ContactAttributeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactAttributeCell.swift; sourceTree = "<group>"; };
+		4236BF0920A8B2480031ED42 /* UIViewController+ErrorAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ErrorAlert.swift"; sourceTree = "<group>"; };
 		423C4B4B20A329ED0012CD53 /* SortedArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortedArray.swift; sourceTree = "<group>"; };
 		423C4B4F20A43FDB0012CD53 /* EditableContactHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableContactHeaderView.swift; sourceTree = "<group>"; };
 		423C4B5120A480130012CD53 /* AddUpdateCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUpdateCoordinator.swift; sourceTree = "<group>"; };
 		4243B1D9209F0BA00011F4F4 /* Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
-		4243B1DC209F11180011F4F4 /* ModifyContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyContactsViewController.swift; sourceTree = "<group>"; };
+		4243B1DC209F11180011F4F4 /* UpsertContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpsertContactsViewController.swift; sourceTree = "<group>"; };
 		4243B1DE209F3C8D0011F4F4 /* ContactDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailsViewController.swift; sourceTree = "<group>"; };
 		42C8F34E20A6DBC30097E399 /* UpdateContactCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateContactCoordinator.swift; sourceTree = "<group>"; };
 		42C8F35020A6E7060097E399 /* ContactDetailsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailsCoordinator.swift; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 		G_8116575626559 /* GoJekTakeHome */ = {
 			isa = PBXGroup;
 			children = (
+				4236BF0920A8B2480031ED42 /* UIViewController+ErrorAlert.swift */,
 				42C8F35420A72CA00097E399 /* Avatar.swift */,
 				42C8F35020A6E7060097E399 /* ContactDetailsCoordinator.swift */,
 				42C8F35220A6E7190097E399 /* AllContactsListCoordinator.swift */,
@@ -180,7 +183,7 @@
 				FR_661699331610 /* AppDelegate.swift */,
 				FR_502428738387 /* Assets.xcassets */,
 				FR_849077609555 /* ContactListViewController.swift */,
-				4243B1DC209F11180011F4F4 /* ModifyContactsViewController.swift */,
+				4243B1DC209F11180011F4F4 /* UpsertContactsViewController.swift */,
 				4243B1DE209F3C8D0011F4F4 /* ContactDetailsViewController.swift */,
 				42C8F34E20A6DBC30097E399 /* UpdateContactCoordinator.swift */,
 				423657C220A06C4400AE3C0E /* ContactAttributeCell.swift */,
@@ -345,11 +348,12 @@
 			files = (
 				423657C120A06B7F00AE3C0E /* FlaggyButton.swift in Sources */,
 				BF_572799802183 /* APIClient.swift in Sources */,
+				4236BF0A20A8B2480031ED42 /* UIViewController+ErrorAlert.swift in Sources */,
 				BF_844831021471 /* AppCoordinator.swift in Sources */,
 				4243B1DB209F0C590011F4F4 /* Styles.swift in Sources */,
 				423C4B5220A480130012CD53 /* AddUpdateCoordinator.swift in Sources */,
 				423C4B5020A43FDB0012CD53 /* EditableContactHeaderView.swift in Sources */,
-				4243B1DD209F11180011F4F4 /* ModifyContactsViewController.swift in Sources */,
+				4243B1DD209F11180011F4F4 /* UpsertContactsViewController.swift in Sources */,
 				423657BF20A06B6B00AE3C0E /* ContactFunctionButton.swift in Sources */,
 				42C8F34F20A6DBC30097E399 /* UpdateContactCoordinator.swift in Sources */,
 				423C4B4C20A329ED0012CD53 /* SortedArray.swift in Sources */,

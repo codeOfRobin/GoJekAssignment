@@ -24,7 +24,17 @@ func style(from color: UIColor, fontSize: CGFloat, fontWeight: UIFont.Weight) ->
 enum Constants {
 
 	enum Strings {
-	
+		static let error = NSLocalizedString("Error", comment: "")
+		static let okay = NSLocalizedString("Okay", comment: "")
+		static let firstName = NSLocalizedString("First Name", comment: "")
+		static let lastName = NSLocalizedString("Last Name", comment: "")
+		static let email = NSLocalizedString("Email", comment: "")
+		static let phoneNumber = NSLocalizedString("Phone Number", comment: "")
+		static let missingFields = NSLocalizedString("Cannot save due to missing fields: ", comment: "")
+	}
+
+	enum notifications {
+		static let conversationListChanged = Notification.Name.init("contactListChanged")
 	}
 
 	enum Sizes {
@@ -51,5 +61,6 @@ enum Styles {
 		static let defaultText = UIColor(red:0.29, green:0.29, blue:0.29, alpha:1.00)
 		static let tintColor = UIColor(red:0.35, green:0.89, blue:0.76, alpha:1.00)
 		static let background = UIColor(red:0.98, green:0.98, blue:0.98, alpha:1.00)
+		static let index = UIColor.black.withAlphaComponent(0.30)
 	}
 }

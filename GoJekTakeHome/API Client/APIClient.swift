@@ -8,6 +8,141 @@
 
 import Foundation
 
+enum Result<T> {
+	case success(T)
+	case failure(Error)
+}
+
+class APIClient {
+	let session: URLSession
+	let requestBuilder = APIRequestBuilder()
+
+	struct ContactsRequestError: Codable {
+		let errors: [String]
+	}
+
+	enum APIError: Error {
+		case requestCreationFailed
+		case urlSessionError(NSError)
+		case dataIsNil
+		case requestFailed(ContactsRequestError)
+		case decodingError(DecodingError)
+	}
+
+	init(session: URLSession = .shared) {
+		self.session = session
+	}
+
+	@discardableResult private func performRequest<T: Decodable>(request: URLRequest, for: T.Type, onComplete completion: @escaping (Result<T>) -> Void ) -> URLSessionDataTask {
+//		print(String.init(data: request.httpBody!, encoding: .utf8))
+		let task = session.dataTask(with: request) { (data, response, error) in
+			if let nsError = error as NSError? {
+				DispatchQueue.main.sync {
+					completion(.failure(APIError.urlSessionError(nsError)))
+				}
+				return
+			}
+
+			guard let data = data, let httpResponse = response as? HTTPURLResponse else {
+				DispatchQueue.main.sync {
+					completion(.failure(APIError.dataIsNil))
+				}
+				return
+			}
+
+			let jsonDecoder = JSONDecoder()
+
+			guard httpResponse.statusCode >= 200 && httpResponse.statusCode < 300 else {
+				do {
+					let requestError = try jsonDecoder.decode(ContactsRequestError.self, from: data)
+					completion(.failure(APIError.requestFailed(requestError)))
+				} catch {
+					if let decodingError = error as? DecodingError {
+						DispatchQueue.main.sync {
+							completion(.failure(APIError.decodingError(decodingError)))
+						}
+					} else {
+						// TODO: fix this error
+						fatalError()
+					}
+				}
+				return
+			}
+
+			do {
+				let value = try jsonDecoder.decode(T.self, from: data)
+				DispatchQueue.main.sync {
+					completion(.success(value))
+				}
+			} catch {
+				if let decodingError = error as? DecodingError {
+					DispatchQueue.main.sync {
+						completion(.failure(APIError.decodingError(decodingError)))
+					}
+				} else {
+					// TODO: fix this error
+					fatalError()
+				}
+			}
+		}
+		task.resume()
+		return task
+	}
+
+	@discardableResult func createContact(with attributes: Contact.Attributes, onComplete completion: @escaping (Result<Contact>) -> Void) -> URLSessionDataTask? {
+		let creationModel = APIRequestBuilder.ContactCreationModel(model: attributes)
+		guard let request = requestBuilder.request(for: .createContact(contact: creationModel)) else {
+			completion(.failure(APIError.requestCreationFailed))
+			return nil
+		}
+
+		let task = self.performRequest(request: request, for: Contact.self) { (result) in
+			completion(result)
+		}
+		return task
+	}
+
+	@discardableResult func updateContact(with contact: Contact, onComplete completion: @escaping (Result<Contact>) -> Void) -> URLSessionDataTask? {
+		let updateModel = APIRequestBuilder.ContactUpdatingModel(id: contact.id, model: contact.model)
+		guard let request = requestBuilder.request(for: .updateContact(contact: updateModel)) else {
+			completion(.failure(APIError.requestCreationFailed))
+			return nil
+		}
+
+		let task = self.performRequest(request: request, for: Contact.self) { (result) in
+			completion(result)
+		}
+		return task
+	}
+
+	@discardableResult func getContacts(onComplete completion: @escaping (Result<[Contact]>) -> Void) -> URLSessionDataTask? {
+		guard let request = requestBuilder.request(for: .getContacts) else {
+			completion(.failure(APIError.requestCreationFailed))
+			return nil
+		}
+
+		let task = self.performRequest(request: request, for: [Contact].self) { (result) in
+			completion(result)
+		}
+		return task
+	}
+
+	@discardableResult func setFavoriteState(_ state: Bool, of contact: Contact, onComplete completion: @escaping (Result<Contact>) -> Void) -> URLSessionDataTask? {
+		let model = contact.model
+		let attrs = Contact.Attributes.init(firstName: model.firstName, lastName: model.lastName, email: model.email, phoneNumber: model.phoneNumber, profilePic: model.profilePic, favorite: state)
+		let updateModel = APIRequestBuilder.ContactUpdatingModel.init(id: contact.id, model: attrs)
+		guard let request = requestBuilder.request(for: .updateContact(contact: updateModel)) else {
+			completion(.failure(APIError.requestCreationFailed))
+			return nil
+		}
+
+		let task = self.performRequest(request: request, for: Contact.self) { (result) in
+			completion(result)
+		}
+		return task
+	}
+}
+
 class APIRequestBuilder {
 	enum Constants {
 		static let host = "gojek-contacts-app.herokuapp.com"
@@ -62,6 +197,8 @@ class APIRequestBuilder {
 		}
 
 		var request = URLRequest.init(url: url)
+
+		request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 
 		request.httpMethod = {
 			switch task {
