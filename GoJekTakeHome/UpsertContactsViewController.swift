@@ -156,16 +156,16 @@ class UpsertContactsViewController: UIViewController, UITableViewDataSource, UIT
 
 		switch indexPath.row {
 		case 0:
-			cell.configure(title: "First Name", value: contact?.model.firstName ?? "", leftWidth: leftWidth)
+			cell.configure(title: Constants.Strings.firstName, value: contact?.model.firstName ?? "", leftWidth: leftWidth, keyboardType: .default, autoCapitalizationType: .words)
 			cell.valueTextField.addTarget(self, action: #selector(firstNameTextFieldChanged(textField:)), for: .editingChanged)
 		case 1:
-			cell.configure(title: "Last Name", value: contact?.model.lastName ?? "", leftWidth: leftWidth)
+			cell.configure(title: Constants.Strings.lastName, value: contact?.model.lastName ?? "", leftWidth: leftWidth, keyboardType: .default, autoCapitalizationType: .words)
 			cell.valueTextField.addTarget(self, action: #selector(lastNameTextFieldChanged(textField:)), for: .editingChanged)
 		case 2:
-			cell.configure(title: "email", value: contact?.model.email ?? "", leftWidth: leftWidth, keyboardType: .emailAddress)
+			cell.configure(title: Constants.Strings.email, value: contact?.model.email ?? "", leftWidth: leftWidth, keyboardType: .emailAddress)
 			cell.valueTextField.addTarget(self, action: #selector(emailTextFieldChanged(textField:)), for: .editingChanged)
 		case 3:
-			cell.configure(title: "mobile", value: contact?.model.phoneNumber ?? "", leftWidth: leftWidth, keyboardType: .phonePad)
+			cell.configure(title: Constants.Strings.mobile, value: contact?.model.phoneNumber ?? "", leftWidth: leftWidth, keyboardType: .phonePad)
 			cell.valueTextField.addTarget(self, action: #selector(phoneNumberTextFieldChanged(textField:)), for: .editingChanged)
 		default:
 			break

@@ -72,7 +72,7 @@ class EditableContactAttributeCell: UITableViewCell {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	func configure(title: String, value: String, leftWidth: CGFloat, keyboardType: UIKeyboardType =  UIKeyboardType.default) {
+	func configure(title: String, value: String, leftWidth: CGFloat, keyboardType: UIKeyboardType =  UIKeyboardType.default, autoCapitalizationType: UITextAutocapitalizationType = .none) {
 		NSLayoutConstraint.activate([
 			self.titleLabel.widthAnchor.constraint(equalToConstant: leftWidth)
 			])
@@ -81,7 +81,7 @@ class EditableContactAttributeCell: UITableViewCell {
 		valueTextField.keyboardType = keyboardType
 		titleLabel.textAlignment = .right
 
-		valueTextField.autocapitalizationType = .none
+		valueTextField.autocapitalizationType = autoCapitalizationType
 		valueTextField.autocorrectionType = .no
 		valueTextField.spellCheckingType = .no
 	}

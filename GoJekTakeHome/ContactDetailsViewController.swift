@@ -53,32 +53,18 @@ class ContactDetailsViewController: UIViewController, UITableViewDataSource, UIT
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	lazy var loadingVC = LoadingViewController(nibName: nil, bundle: nil)
-	lazy var errorVC = ErrorViewController(nibName: nil, bundle: nil)
-
 	var state: State {
 		didSet {
 			guard oldValue != state else {
 				return
 			}
 
-			switch oldValue {
-			case .loading:
-				loadingVC.remove()
-			case .error:
-				errorVC.remove()
-			default:
-				break
-			}
-
 			switch state {
-			case .loading:
-				self.add(loadingVC)
-			case .error(let error, _):
-				self.errorVC.configure(text: error.localizedDescription)
-				self.add(errorVC)
 			case .loadedFullDetails:
 				self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .edit, target: self, action: #selector(editButtonTapped))
+			tableView.reloadData()
+			default:
+				break
 			}
 		}
 	}
