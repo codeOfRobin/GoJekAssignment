@@ -20,6 +20,7 @@ Our aim in this challenge is to build a Contacts app that uses a Webservice to p
 ## Coordinators
 The app uses Coordinators to ensure decoupling in the View Controllers and easy testability.  Since Coordinators talk to View Controllers (and coordinators talk to their children) via delegates, this architecture is inherently testable, owing to the fact that we can pass in our own objects conforming to a protocol.
 
-## Things I can improve
+## Things I think can improve
 - There’s some state management + UI issues I’d like to improve on
 - There’s some broken constraints in `UITableViewSectionHeader`s  (it seems to add a constraint for `height == 28` in-spite of me using `UITableViewAutomaticDimension` . But that’s UIKit and Autolayout for you  ¯\_(ツ)_/¯ 
+- Image downloads still depend on a third party library (AlamofireImage). I did attempt writing my own [imageDownloader](https://github.com/codeOfRobin/GoJekAssignment/blob/9904b80713ca1ffda4351ca69c3c459b6d587985/GoJekTakeHome/ProfilePictureStorage.swift) but there's a lot of intricacies involved that I'd rather _not_ reinvent the wheel for.
