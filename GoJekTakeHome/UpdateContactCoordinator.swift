@@ -8,7 +8,7 @@
 import UIKit
 
 protocol UpdateContactCoordinatorDelegate: class {
-	func updateContactCoordinator(_ updateContactCoordinator: UpdateContactCoordinator, didUpdateContact contactPayload: Contact)
+	func updateContactCoordinator(_ updateContactCoordinator: UpdateContactCoordinator, didUpdateContact contact: Contact)
 	func updateContactCoordinatorDidRequestCancel(_ updateContactCoordinator: UpdateContactCoordinator)
 }
 
@@ -19,9 +19,11 @@ class UpdateContactCoordinator: Coordinator, UpsertContactsViewControllerDelegat
 
 	let rootViewController: UINavigationController
 	let contact: Contact
+	let services: Services
 
-	init(rootViewController: UINavigationController, contact: Contact) {
+	init(rootViewController: UINavigationController, contact: Contact, services: Services) {
 		self.contact = contact
+		self.services = services
 		self.rootViewController = rootViewController
 	}
 
@@ -45,6 +47,14 @@ class UpdateContactCoordinator: Coordinator, UpsertContactsViewControllerDelegat
 	}
 
 	func saveButtonTapped(with attrs: Contact.Attributes) {
-		self.delegate?.updateContactCoordinatorDidRequestCancel(self)
+		let newContact = Contact.init(model: attrs, id: contact.id, createdAt: nil, updatedAt: nil)
+		self.services.apiClient.updateContact(with: newContact) { (result) in
+			switch result {
+			case .success(let contact):
+				self.delegate?.updateContactCoordinator(self, didUpdateContact: contact)
+			case .failure(let error):
+				print(error)
+			}
+		}
 	}
 }

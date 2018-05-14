@@ -56,13 +56,19 @@ class ContactListViewController: UIViewController, UITableViewDataSource, UITabl
 		tableView.dataSource = self
 		tableView.delegate = self
 
+		NotificationCenter.default.addObserver(forName: Constants.notifications.conversationListChanged, object: nil, queue: .main) { [weak self] (_) in
+			if let contacts = self?.services.contacts.elements {
+				self?.contacts = contacts
+				self?.tableView.reloadData()
+			}
+		}
 
 		// TODO: Replace with APIClient
-		services.apiClient.getContacts { (result) in
+		services.apiClient.getContacts { [weak self] (result) in
 			switch result {
 			case .success(let contacts):
-				self.contacts = contacts
-				self.tableView.reloadData()
+				self?.services.contacts.elements = contacts
+				self?.tableView.reloadData()
 			case .failure(let error):
 				break
 			}
@@ -72,15 +78,8 @@ class ContactListViewController: UIViewController, UITableViewDataSource, UITabl
 		self.tableView.sectionIndexColor = Styles.Colors.index
 		self.title = "Contacts"
 		self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .add, target: self, action: #selector(addContactButtonTapped))
-
-		NotificationCenter.default.addObserver(forName: Constants.notifications.conversationListChanged, object: nil, queue: .main) { [weak self] (_) in
-			if let contacts = self?.services.contacts.elements {
-				self?.contacts = contacts
-				self?.tableView.reloadData()
-			}
-		}
         // Do any additional setup after loading the view.
-    }
+	}
 
 	@objc func addContactButtonTapped() {
 		delegate?.didAskForNewContact(vc: self)

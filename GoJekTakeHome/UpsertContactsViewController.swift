@@ -67,6 +67,11 @@ class UpsertContactsViewController: UIViewController, UITableViewDataSource, UIT
 
 		self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonTapped))
 		self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonTapped))
+
+		self.firstName = contact?.model.firstName
+		self.lastName = contact?.model.lastName
+		self.email = contact?.model.email
+		self.phoneNumber = contact?.model.phoneNumber
         // Do any additional setup after loading the view.
     }
 

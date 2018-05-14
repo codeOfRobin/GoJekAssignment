@@ -80,5 +80,9 @@ class EditableContactAttributeCell: UITableViewCell {
 		valueTextField.attributedText = NSAttributedString(string: value, attributes: Styles.Text.ContactAttributes.value)
 		valueTextField.keyboardType = keyboardType
 		titleLabel.textAlignment = .right
+
+		valueTextField.autocapitalizationType = .none
+		valueTextField.autocorrectionType = .no
+		valueTextField.spellCheckingType = .no
 	}
 }

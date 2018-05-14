@@ -30,7 +30,15 @@ enum Constants {
 		static let lastName = NSLocalizedString("Last Name", comment: "")
 		static let email = NSLocalizedString("Email", comment: "")
 		static let phoneNumber = NSLocalizedString("Phone Number", comment: "")
+		static let mobile = NSLocalizedString("Mobile", comment: "")
 		static let missingFields = NSLocalizedString("Cannot save due to missing fields: ", comment: "")
+
+		enum Actions {
+			static let message = NSLocalizedString("message", comment: "")
+			static let call = NSLocalizedString("call", comment: "")
+			static let email = NSLocalizedString("email", comment: "")
+			static let favorite = NSLocalizedString("favorite", comment: "")
+		}
 	}
 
 	enum notifications {

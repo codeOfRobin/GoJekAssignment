@@ -14,7 +14,11 @@ protocol ContactDetailsCoordinatorDelegate: class {
 class ContactDetailsCoordinator: Coordinator, ContactDetailsViewControllerDelegate {
 
 	let rootViewController: UINavigationController
-	let contact: Contact
+	var contact: Contact {
+		didSet {
+			self.viewController?.contact = contact
+		}
+	}
 	let services: Services
 
 	var viewController: ContactDetailsViewController?
@@ -31,7 +35,7 @@ class ContactDetailsCoordinator: Coordinator, ContactDetailsViewControllerDelega
 	}
 
 	func start() {
-		viewController = ContactDetailsViewController.init(contact: contact)
+		viewController = ContactDetailsViewController(contact: contact)
 		guard let vc = viewController else {
 			//TODO: Add error messages for these common cases (vc initialization, dequeuing using Constants.swift
 			fatalError()
@@ -41,12 +45,13 @@ class ContactDetailsCoordinator: Coordinator, ContactDetailsViewControllerDelega
 	}
 
 	func editButtonTapped(_ vc: ContactDetailsViewController, contact: Contact) {
-		updateContactCoordinator = UpdateContactCoordinator(rootViewController: self.rootViewController, contact: contact)
+		updateContactCoordinator = UpdateContactCoordinator(rootViewController: self.rootViewController, contact: contact, services: services)
 		guard let coordinator = updateContactCoordinator else {
 			//TODO: Add error messages for these common cases (vc initialization, dequeuing using Constants.swift
 			fatalError()
 		}
 		coordinator.start()
+		coordinator.delegate = self
 	}
 
 	func backButtonTapped(_ vc: ContactDetailsViewController) {
@@ -75,5 +80,23 @@ class ContactDetailsCoordinator: Coordinator, ContactDetailsViewControllerDelega
 		}
 
 		favoriteRequestInProgress = request
+	}
+}
+
+extension ContactDetailsCoordinator: UpdateContactCoordinatorDelegate {
+	func updateContactCoordinator(_ updateContactCoordinator: UpdateContactCoordinator, didUpdateContact contact: Contact) {
+		updateContactCoordinator.viewController?.dismiss(animated: true, completion: nil)
+		self.contact = contact
+		guard let index = services.contacts.elements.index(where: { (contactInfo) -> Bool in
+			contactInfo.id == contact.id
+		}) else {
+			return
+		}
+		services.contacts.elements[index] = contact
+	}
+
+	func updateContactCoordinatorDidRequestCancel(_ updateContactCoordinator: UpdateContactCoordinator) {
+		updateContactCoordinator.viewController?.dismiss(animated: true, completion: nil)
+		self.updateContactCoordinator = nil
 	}
 }

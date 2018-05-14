@@ -16,13 +16,24 @@ protocol ContactDetailsViewControllerDelegate: class {
 
 class ContactDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ContactHeaderDelegate {
 
-	let contact: Contact
+	var contact: Contact {
+		didSet {
+			self.tableView.reloadData()
+		}
+	}
 
 	weak var delegate: ContactDetailsViewControllerDelegate?
 
 	let contactHeaderView = ContactHeaderView(frame: .zero)
 	let tableView = UITableView(frame: .zero, style: .grouped)
 	let leftWidth: CGFloat = 70
+
+	enum State {
+		case loading
+		case loadedFullDetails(Contact)
+	}
+
+	var state: State = .loading
 
 	init(contact: Contact) {
 		self.contact = contact
@@ -55,6 +66,10 @@ class ContactDetailsViewController: UIViewController, UITableViewDataSource, UIT
 		self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(barButtonSystemItem: .edit, target: self, action: #selector(editButtonTapped))
 
 		self.tableView.backgroundColor = Styles.Colors.background
+
+		NotificationCenter.default.addObserver(forName: Constants.notifications.conversationListChanged, object: nil, queue: .main) { (_) in
+
+		}
         // Do any additional setup after loading the view.
     }
 
@@ -95,7 +110,7 @@ class ContactDetailsViewController: UIViewController, UITableViewDataSource, UIT
 		switch indexPath.row {
 		case 0:
 			//TODO: Maybe don't display these cells?
-			cell.configure(title: Constants.Strings.phoneNumber, value: contact.model.phoneNumber ?? "", leftWidth: leftWidth)
+			cell.configure(title: Constants.Strings.mobile, value: contact.model.phoneNumber ?? "", leftWidth: leftWidth)
 		case 1:
 			//TODO: Maybe don't display these cells if null?
 			cell.configure(title: Constants.Strings.email, value: contact.model.email ?? "", leftWidth: leftWidth)

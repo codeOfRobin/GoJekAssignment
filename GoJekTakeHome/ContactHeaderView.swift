@@ -52,9 +52,9 @@ class ContactHeaderView: UITableViewHeaderFooterView {
 		let emailButton = UIButton()
 		emailButton.setImage(#imageLiteral(resourceName: "Email"), for: .normal)
 
-		let phone = ContactFunctionButton(button: phoneButton, text: "call")
-		let message = ContactFunctionButton(button: messageButton, text: "message")
-		let email = ContactFunctionButton(button: emailButton, text: "email")
+		let phone = ContactFunctionButton(button: phoneButton, text: Constants.Strings.Actions.call)
+		let message = ContactFunctionButton(button: messageButton, text: Constants.Strings.Actions.message)
+		let email = ContactFunctionButton(button: emailButton, text: Constants.Strings.Actions.email)
 
 		return [message, phone, email]
 	}()
@@ -67,7 +67,7 @@ class ContactHeaderView: UITableViewHeaderFooterView {
 	weak var delegate: ContactHeaderDelegate?
 
 	override init(reuseIdentifier: String?) {
-		self.favoriteButton = ContactFunctionButton.init(button: flaggyFavoriteButton, text: "Favorite")
+		self.favoriteButton = ContactFunctionButton.init(button: flaggyFavoriteButton, text: Constants.Strings.Actions.favorite)
 		super.init(reuseIdentifier: reuseIdentifier)
 		self.contentView.addSubview(stackView)
 
