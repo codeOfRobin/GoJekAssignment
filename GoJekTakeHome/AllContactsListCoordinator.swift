@@ -38,8 +38,7 @@ class AllContactListCoordinator: Coordinator, ContactListDelegate {
 	func start() {
 		viewController = ContactListViewController.init(services: services)
 		guard let vc = viewController else {
-			//TODO: fix this
-			fatalError()
+			fatalError(Constants.Strings.Errors.viewControllerInitialization)
 		}
 		self.rootViewController.viewControllers = [vc]
 		vc.delegate = self

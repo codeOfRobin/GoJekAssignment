@@ -11,6 +11,7 @@ class EditableContactHeaderView: UITableViewHeaderFooterView {
 	let gradientLayer = CAGradientLayer()
 
 	let profileImageView = UIImageView()
+	let gradientColors = [UIColor.white, UIColor(red:0.87, green:0.96, blue:0.94, alpha:1.00)]
 
 	override init(reuseIdentifier: String?) {
 		super.init(reuseIdentifier: reuseIdentifier)
@@ -27,8 +28,7 @@ class EditableContactHeaderView: UITableViewHeaderFooterView {
 			profileImageView.centerXAnchor.constraint(equalTo: self.contentView.centerXAnchor),
 			])
 
-		//TODO: Move this color into its own variable
-		gradientLayer.colors = [UIColor.white.cgColor, UIColor(red:0.87, green:0.96, blue:0.94, alpha:1.00).cgColor]
+		gradientLayer.colors = gradientColors.map { $0.cgColor }
 		gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.0)
 		gradientLayer.endPoint = CGPoint(x: 0.5, y: 1.0)
 		self.layer.insertSublayer(gradientLayer, at: 0)

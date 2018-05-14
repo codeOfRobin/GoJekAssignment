@@ -37,8 +37,7 @@ class ContactDetailsCoordinator: Coordinator, ContactDetailsViewControllerDelega
 	func start() {
 		viewController = ContactDetailsViewController(contact: contact, services: services)
 		guard let vc = viewController else {
-			//TODO: Add error messages for these common cases (vc initialization, dequeuing using Constants.swift
-			fatalError()
+			fatalError(Constants.Strings.Errors.viewControllerInitialization)
 		}
 		vc.delegate = self
 		rootViewController.pushViewController(vc, animated: true)
@@ -47,8 +46,7 @@ class ContactDetailsCoordinator: Coordinator, ContactDetailsViewControllerDelega
 	func editButtonTapped(_ vc: ContactDetailsViewController, contact: Contact) {
 		updateContactCoordinator = UpdateContactCoordinator(rootViewController: self.rootViewController, contact: contact, services: services)
 		guard let coordinator = updateContactCoordinator else {
-			//TODO: Add error messages for these common cases (vc initialization, dequeuing using Constants.swift
-			fatalError()
+			fatalError(Constants.Strings.Errors.viewControllerInitialization)
 		}
 		coordinator.start()
 		coordinator.delegate = self

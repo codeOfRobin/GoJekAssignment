@@ -8,7 +8,6 @@
 import UIKit
 
 protocol ContactDetailsViewControllerDelegate: class {
-	// TODO: make sure delegate type signatures pass in the VC
 	func editButtonTapped(_ vc: ContactDetailsViewController, contact: Contact)
 	func backButtonTapped(_ vc: ContactDetailsViewController)
 	func changeFavoriteState(_ vc: ContactDetailsViewController, contact: Contact, state: Bool)
@@ -94,9 +93,8 @@ class ContactDetailsViewController: UIViewController, UITableViewDataSource, UIT
 		tableView.rowHeight = UITableViewAutomaticDimension
 		tableView.sectionHeaderHeight = UITableViewAutomaticDimension
 		tableView.estimatedRowHeight = 44.0
-		//TODO: remove string identifiers
-		tableView.register(ContactHeaderView.self, forHeaderFooterViewReuseIdentifier: "header")
-		tableView.register(ContactAttributeCell.self, forCellReuseIdentifier: "cell")
+		tableView.register(ContactHeaderView.self, forHeaderFooterViewReuseIdentifier: Constants.Strings.ReuseIdentifiers.ContactHeaderView)
+		tableView.register(ContactAttributeCell.self, forCellReuseIdentifier: Constants.Strings.ReuseIdentifiers.ContactAttributeCell)
 		tableView.tableFooterView = UIView()
 
 		self.tableView.backgroundColor = Styles.Colors.background
@@ -131,8 +129,8 @@ class ContactDetailsViewController: UIViewController, UITableViewDataSource, UIT
 	}
 
 	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-		guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? ContactHeaderView else {
-			fatalError()
+		guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: Constants.Strings.ReuseIdentifiers.ContactHeaderView) as? ContactHeaderView else {
+			fatalError(Constants.Strings.Errors.cellDequeueing)
 		}
 		let avatar: Avatar = {
 			if let url = contact.model.profilePic {
@@ -147,8 +145,8 @@ class ContactDetailsViewController: UIViewController, UITableViewDataSource, UIT
 	}
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? ContactAttributeCell else {
-			fatalError()
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Strings.ReuseIdentifiers.ContactAttributeCell, for: indexPath) as? ContactAttributeCell else {
+			fatalError(Constants.Strings.Errors.cellDequeueing)
 		}
 
 		let valueToDisplay: (String?) -> String = { string in
@@ -161,10 +159,8 @@ class ContactDetailsViewController: UIViewController, UITableViewDataSource, UIT
 
 		switch indexPath.row {
 		case 0:
-			//TODO: Maybe don't display these cells?
 			cell.configure(title: Constants.Strings.mobile, value: valueToDisplay(contact.model.phoneNumber), leftWidth: leftWidth)
 		case 1:
-			//TODO: Maybe don't display these cells if null?
 			cell.configure(title: Constants.Strings.email, value: valueToDisplay(contact.model.email), leftWidth: leftWidth)
 		default:
 			break
@@ -174,6 +170,10 @@ class ContactDetailsViewController: UIViewController, UITableViewDataSource, UIT
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return 2
+	}
+
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		tableView.deselectRow(at: indexPath, animated: true)
 	}
 
 	override func viewDidDisappear(_ animated: Bool) {

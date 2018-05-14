@@ -27,6 +27,21 @@ class APIClient {
 		case dataIsNil
 		case requestFailed(ContactsRequestError)
 		case decodingError(DecodingError)
+
+		var localizedDescription: String {
+			switch self {
+			case .dataIsNil:
+				return Constants.Strings.Errors.dataIsNil
+			case .decodingError:
+				return Constants.Strings.Errors.clientSideError
+			case .requestCreationFailed:
+				return Constants.Strings.Errors.clientSideError
+			case .requestFailed(let apiError):
+				return apiError.errors.first ?? ""
+			case .urlSessionError(let nsErrror):
+				return nsErrror.localizedDescription
+			}
+		}
 	}
 
 	init(session: URLSession = .shared) {
@@ -62,7 +77,7 @@ class APIClient {
 							completion(.failure(APIError.decodingError(decodingError)))
 						}
 					} else {
-						// TODO: fix this error
+						// You could make this fail as a `randomError` or something, but I don't like having undefined cases in my API. Better to fail first and fail fast usually
 						fatalError()
 					}
 				}
@@ -80,7 +95,7 @@ class APIClient {
 						completion(.failure(APIError.decodingError(decodingError)))
 					}
 				} else {
-					// TODO: fix this error
+					// You could make this fail as a `randomError` or something, but I don't like having undefined cases in my API. Better to fail first and fail fast usually
 					fatalError()
 				}
 			}

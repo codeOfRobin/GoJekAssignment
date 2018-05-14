@@ -17,6 +17,7 @@ class UpsertContactsViewController: UIViewController, UITableViewDataSource, UIT
 	let tableView = UITableView(frame: .zero, style: .grouped)
 	let leftWidth: CGFloat = 82
 	var currentlyFocussedCellIndex: IndexPath?
+	var currentlyFocussedTextField: UITextField?
 
 	var firstName: String?
 	var lastName: String?
@@ -83,9 +84,8 @@ class UpsertContactsViewController: UIViewController, UITableViewDataSource, UIT
 
 		tableView.keyboardDismissMode = .onDrag
 
-		// TODO: replace strings in all register calls
-		tableView.register(EditableContactHeaderView.self, forHeaderFooterViewReuseIdentifier: "header")
-		tableView.register(EditableContactAttributeCell.self, forCellReuseIdentifier: "cell")
+		tableView.register(EditableContactHeaderView.self, forHeaderFooterViewReuseIdentifier: Constants.Strings.ReuseIdentifiers.EditableContactHeaderView)
+		tableView.register(EditableContactAttributeCell.self, forCellReuseIdentifier: Constants.Strings.ReuseIdentifiers.EditableContactAttributeCell)
 		tableView.sectionHeaderHeight = UITableViewAutomaticDimension
 		tableView.tableFooterView = UIView()
 
@@ -99,7 +99,6 @@ class UpsertContactsViewController: UIViewController, UITableViewDataSource, UIT
     }
 
 	@objc func saveButtonTapped() {
-		//TODO: Fix this to call an actual save method
 		// All fields of the new contact are mandatory in this screen (so says the mighty PDF!)
 		self.state = .saving
 		
@@ -149,9 +148,8 @@ class UpsertContactsViewController: UIViewController, UITableViewDataSource, UIT
 	}
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? EditableContactAttributeCell else {
-			//TODO: Make these kinds of errors better
-			fatalError("cell not dequeued")
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Strings.ReuseIdentifiers.EditableContactAttributeCell, for: indexPath) as? EditableContactAttributeCell else {
+			fatalError(Constants.Strings.Errors.cellDequeueing)
 		}
 
 		switch indexPath.row {
@@ -176,7 +174,7 @@ class UpsertContactsViewController: UIViewController, UITableViewDataSource, UIT
 	}
 
 	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-		guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header") as? EditableContactHeaderView else {
+		guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: Constants.Strings.ReuseIdentifiers.EditableContactHeaderView) as? EditableContactHeaderView else {
 			return nil
 		}
 		if let contact = contact, let url = contact.model.profilePic {
@@ -200,7 +198,6 @@ extension UpsertContactsViewController: UITextFieldDelegate {
 		if let cell = textField.superview?.superview as? EditableContactAttributeCell,
 			let indexPath = tableView.indexPath(for: cell) {
 			currentlyFocussedCellIndex = indexPath
-//			let frame = tableView.rectForRow(at: indexPath)
 			tableView.contentInset.bottom = 300
 		}
 	}

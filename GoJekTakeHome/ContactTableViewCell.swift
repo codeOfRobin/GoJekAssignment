@@ -8,7 +8,6 @@
 import UIKit
 import AlamofireImage
 
-//TODO: Make sure reuseIdentifiers aren't hardcoded
 class ContactTableViewCell: UITableViewCell {
 
 	let nameLabel = UILabel()

@@ -35,6 +35,21 @@ enum Constants {
 		static let loading = NSLocalizedString("Loading…", comment: "")
 		static let saving = NSLocalizedString("Saving…", comment: "")
 
+		enum Errors {
+			static let cellDequeueing = NSLocalizedString("UITableView couldn't be dequeued. Obviously something went really wrong here", comment: "")
+			static let viewControllerInitialization = NSLocalizedString("UIViewController could not be initialized", comment: "")
+			static let dataIsNil = NSLocalizedString("Data receieved in request was nil", comment: "")
+			static let clientSideError = NSLocalizedString("Whoops, looks like something failed on our end. We'll look into it 😅", comment: "")
+		}
+
+		enum ReuseIdentifiers {
+			static let ContactTableViewCell = "ContactTableViewCell"
+			static let EditableContactHeaderView = "EditableContactHeaderView"
+			static let EditableContactAttributeCell = "EditableContactAttributeCell"
+			static let ContactHeaderView = "ContactHeaderView"
+			static let ContactAttributeCell = "ContactAttributeCell"
+		}
+
 		enum Actions {
 			static let message = NSLocalizedString("message", comment: "")
 			static let call = NSLocalizedString("call", comment: "")

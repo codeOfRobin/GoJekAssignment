@@ -102,7 +102,7 @@ class ContactListViewController: UIViewController, UITableViewDataSource, UITabl
 		self.view.backgroundColor = .white
 
 		self.view.addSubview(tableView)
-		tableView.register(ContactTableViewCell.self, forCellReuseIdentifier: "cell")
+		tableView.register(ContactTableViewCell.self, forCellReuseIdentifier: Constants.Strings.ReuseIdentifiers.ContactTableViewCell)
 
 		tableView.dataSource = self
 		tableView.delegate = self
@@ -150,8 +150,8 @@ class ContactListViewController: UIViewController, UITableViewDataSource, UITabl
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let contact = sections[indexPath.section][indexPath.row]
-		guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? ContactTableViewCell else {
-			fatalError("Cannot dequeue cell")
+		guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Strings.ReuseIdentifiers.ContactTableViewCell) as? ContactTableViewCell else {
+			fatalError(Constants.Strings.Errors.cellDequeueing)
 		}
 
 		cell.configure(with: contact.model)

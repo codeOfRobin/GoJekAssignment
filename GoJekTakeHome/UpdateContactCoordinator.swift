@@ -53,7 +53,12 @@ class UpdateContactCoordinator: Coordinator, UpsertContactsViewControllerDelegat
 			case .success(let contact):
 				self.delegate?.updateContactCoordinator(self, didUpdateContact: contact)
 			case .failure(let error):
-				print(error)
+				if let apiError = error as? APIClient.APIError {
+					DispatchQueue.main.async {
+						self.viewController?.topViewController?.showErrorAlert(description: apiError.localizedDescription)
+						(self.viewController?.topViewController as? UpsertContactsViewController)?.state = .entry
+					}
+				}
 			}
 		}
 	}
