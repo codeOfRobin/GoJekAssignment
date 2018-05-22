@@ -51,7 +51,7 @@ class APIClient {
 	@discardableResult private func performRequest<T: Decodable>(request: URLRequest, for: T.Type, onComplete completion: @escaping (Result<T>) -> Void ) -> URLSessionDataTask {
 //		print(String.init(data: request.httpBody!, encoding: .utf8))
 		let task = session.dataTask(with: request) { (data, response, error) in
-			if let nsError = error as NSError? {
+			if let nsError = error as NSError?, nsError.domain == NSURLErrorDomain {
 				DispatchQueue.main.sync {
 					completion(.failure(APIError.urlSessionError(nsError)))
 				}
