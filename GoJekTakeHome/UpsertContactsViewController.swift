@@ -87,6 +87,8 @@ class UpsertContactsViewController: UIViewController, UITableViewDataSource, UIT
 		tableView.register(EditableContactHeaderView.self, forHeaderFooterViewReuseIdentifier: Constants.Strings.ReuseIdentifiers.EditableContactHeaderView)
 		tableView.register(EditableContactAttributeCell.self, forCellReuseIdentifier: Constants.Strings.ReuseIdentifiers.EditableContactAttributeCell)
 		tableView.sectionHeaderHeight = UITableViewAutomaticDimension
+
+		tableView.estimatedSectionHeaderHeight = 110.0
 		tableView.tableFooterView = UIView()
 
 		self.state = .entry

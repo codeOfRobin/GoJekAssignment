@@ -52,6 +52,7 @@ class APIClient {
 //		print(String.init(data: request.httpBody!, encoding: .utf8))
 		let task = session.dataTask(with: request) { (data, response, error) in
 			if let nsError = error as NSError?, nsError.domain == NSURLErrorDomain {
+				
 				DispatchQueue.main.sync {
 					completion(.failure(APIError.urlSessionError(nsError)))
 				}
@@ -78,7 +79,7 @@ class APIClient {
 						}
 					} else {
 						// You could make this fail as a `randomError` or something, but I don't like having undefined cases in my API. Better to fail first and fail fast usually
-						fatalError()
+						fatalError(error.localizedDescription)
 					}
 				}
 				return
@@ -220,6 +221,7 @@ class APIRequestBuilder {
 		components.path = path
 
 		guard let url = components.url else {
+			//return nil
 			fatalError("Can't generate URL")
 		}
 

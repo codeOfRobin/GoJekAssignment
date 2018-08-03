@@ -26,12 +26,8 @@ class AddContactCoordinator: Coordinator, UpsertContactsViewControllerDelegate {
 	}
 
 	func start() {
-		viewController = UpsertContactsViewController(initialState: .add)
-
-		guard let vc = viewController else {
-			// This means the initialization in 27 failed somehow, which would be a compiler bug or something
-			fatalError()
-		}
+		let vc = UpsertContactsViewController(initialState: .add)
+		viewController = vc
 		let nav = UINavigationController(rootViewController: vc)
 
 		nav.navigationBar.tintColor = Styles.Colors.tintColor
